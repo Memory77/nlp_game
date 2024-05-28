@@ -6,10 +6,6 @@ import main
 import sql_game
 
 #quelques fonctions, a mettre surement dans un autre fichier plus tard
-def roll_dice(dice: int):
-    return random.randint(1, dice)
-
-
 def draw_button(screen, text, x, y, width, height, active_color, inactive_color, font_size):
     mouse = pygame.mouse.get_pos()
     if x + width > mouse[0] > x and y + height > mouse[1] > y:
@@ -218,6 +214,8 @@ while running:
                 joueurs[current_player_index].move("up", cell_height, cell_width, game)
             elif event.key == pygame.K_DOWN:
                 joueurs[current_player_index].move("down", cell_height, cell_width, game)
+            joueurs[current_player_index].check_camembert(camembert_sprites)
+            joueurs[current_player_index].take_camembert(camembert_sprites, cell_width, cell_height, game, game_board)
             joueurs[current_player_index].check_fall(fall_sprites, gamer_sprites, cell_width, cell_height, game)
 
             if event.key == pygame.K_SPACE:  # espace pour la confirmation de la fin du tour
