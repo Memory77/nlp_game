@@ -1,0 +1,308 @@
+import pygame
+import numpy as np
+from gamers import *
+import random
+import main
+import sql_game
+
+#quelques fonctions, a mettre surement dans un autre fichier plus tard
+def roll_dice(dice: int):
+    return random.randint(1, dice)
+
+
+def draw_button(screen, text, x, y, width, height, active_color, inactive_color, font_size):
+    mouse = pygame.mouse.get_pos()
+    if x + width > mouse[0] > x and y + height > mouse[1] > y:
+        pygame.draw.rect(screen, active_color, (x, y, width, height))
+    else:
+        pygame.draw.rect(screen, inactive_color, (x, y, width, height))
+    
+    font = pygame.font.SysFont(None, font_size)
+    text_surf = font.render(text, True, (0, 0, 0))
+    text_rect = text_surf.get_rect()
+    text_rect.center = ((x + (width / 2)), (y + (height / 2)))
+    screen.blit(text_surf, text_rect)
+    
+
+def auto_wrap(text: str, nb_characters: int) -> str:
+    # permet de faire les retours à la ligne automatiquement
+    words = text.split(' ')
+    wrapped_lines = []
+    
+    for word in words:
+        if len(wrapped_lines) == 0:
+            wrapped_lines.append('')
+        test_line = wrapped_lines[-1] + word + ' '
+        
+        if len(test_line) < nb_characters:
+            wrapped_lines[-1] = test_line
+        else:
+            wrapped_lines.append(word + ' ')
+
+    return wrapped_lines
+
+    
+# AFFICHAGE PYGAME
+
+# Initialisation de Pygame
+pygame.init()
+
+pygame.mixer.init() 
+
+music_list = ['moonwalker.wav',
+              'Fort_Boyard.wav',
+              ]
+random_music = random.choice(music_list)
+music = pygame.mixer.music.load(f"sounds/{random_music}")
+pygame.mixer.music.set_volume(0.3) #1.0 volume max
+if random_music == 'Fort_Boyard.wav':
+    pygame.mixer.music.set_volume(0.6)
+pygame.mixer.music.play(-1)
+
+
+width, height = 1800, 1000  # Ajustez selon vos besoins
+screen = pygame.display.set_mode((width, height))
+
+
+## === INTERFACE (coté droit, pour tout ce qui est interaction questions etc.)
+#dimensions de l'interface
+interface_width = 500  
+interface_height = height  # même hauteur que votre fenêtre de jeu
+interface_x = width - interface_width  #  positionne l'interface à droite
+interface_y = 0  #  positionne l'interface en haut de l'écran
+
+interface_bg_color = (255, 255, 255)
+interface_image = pygame.image.load('img/interface_img.png')  
+interface_image = pygame.transform.scale(interface_image, (interface_width, interface_height))  # redimensionner l'image
+
+# dimensions du bouton principal de l'interface pour l'interaction(dé, questions etc)
+button_x = interface_x + 50
+button_y = 100
+button_width = 400
+button_height = 50
+active_color = (255, 105, 180)
+inactive_color = (10, 210, 255)
+answer_active_color = (255, 180, 105)
+answer_inactive_color = (10, 255, 210)
+
+
+
+## === PLATEAU DE JEU (coté gauche, cependant, il est réellement defini dans la boucle de jeu car doit se mettre à jour)
+
+#liste contenant les id de toutes les categories 
+cat_id = []
+colors = {}
+for categorie in sql_game.categories():
+    cat_id.append(categorie[0])
+    colors[categorie[0]] = (categorie[1], categorie[2], categorie[3])
+
+np.random.seed(5)#graine pour figer le random choice 
+game_board = np.random.choice(cat_id, size=(main.board_game_height, main.board_game_width))
+
+
+# import du nouveau jeu
+game = main.new_game()
+
+# definition de la largeur du plateau de jeu en soustrayant la largeur de l'interface
+game_board_width = width - interface_width
+
+# definition des cellules par rapport au playing board et des dimensions de l'écran afin de pouvoir positionner les entités apres
+cell_width = game_board_width  // game.board_game_width
+cell_height = height // game.board_game_height
+
+
+#=== INITIALISATION DES JOUEURS ET DES ELEMENTS 
+# creation des joueurs 
+gamer_sprites = pygame.sprite.Group()
+joueurs = []
+game_gamers_sprite = game.gamers_sprite()
+for gamer in game_gamers_sprite:
+    joueurs.append(gamer)
+    gamer_sprites.add(gamer)
+    gamer.set_position(gamer.y, gamer.x, cell_width, cell_height)
+    gamer.set_params(gamer.personnage)
+print(f'''Que le jeu TRIV POURSUITE IA COMMENCE !
+      
+      Tu dois avoir ton score supérieur ou égale à {game.end_game_max_points} ou récolter les {game.end_game_max_camembert} camemberts de couleur
+      en répondant aux questions pour remporter la victoire !
+      Bonne chance :) 
+      ''')
+
+#creation des camemberts
+camembert_pink = Element(0, 0, "camembert", "pink")
+camembert_green = Element(0, 0, "camembert", "green")
+camembert_blue = Element(0, 0, "camembert", "blue")
+camembert_yellow = Element(0, 0, "camembert", "yellow")
+camembert_purple = Element(0, 0, "camembert", "purple")
+camembert_orange = Element(0, 0, "camembert", "orange")
+
+camembert_sprites = pygame.sprite.Group()
+camembert_sprites.add(camembert_pink)
+camembert_sprites.add(camembert_green)
+camembert_sprites.add(camembert_blue)
+camembert_sprites.add(camembert_yellow)
+camembert_sprites.add(camembert_purple)
+camembert_sprites.add(camembert_orange)
+
+#création des trous
+fall_one = Element(0, 0, "fall")
+fall_two = Element(0, 0, "fall")
+
+fall_sprites = pygame.sprite.Group()
+fall_sprites.add(fall_one)
+fall_sprites.add(fall_two)
+
+#requalibration de la position et de l'image du camembert (6 camemberts disposés dans le plateau)
+camembert_pink.set_position(2, 11, cell_width, cell_height)
+camembert_pink.set_image()
+
+camembert_green.set_position(11, 21, cell_width, cell_height)
+camembert_green.set_image()
+
+
+camembert_blue.set_position(10, 5, cell_width, cell_height)
+camembert_blue.set_image()
+
+camembert_yellow.set_position(2, 1, cell_width, cell_height)
+camembert_yellow.set_image()
+
+camembert_purple.set_position(7, 12, cell_width, cell_height)
+camembert_purple.set_image()
+
+camembert_orange.set_position(2, 20, cell_width, cell_height)
+camembert_orange.set_image()
+
+#idem pour le trou
+fall_one.set_position(10, 13, cell_width, cell_height)
+fall_one.set_image()
+
+fall_two.set_position(3, 13, cell_width, cell_height)
+fall_two.set_image()
+
+# États de jeu
+ETAT_JEU = 1
+etat_jeu = ETAT_JEU
+current_player_index = 0
+
+# Boucle principale
+running = True
+while running:
+    
+    #definition visuel du plateau (qui est remis à jour a chaque tour dans la boucle)
+    for i in range(game.board_game_height):
+        for j in range(game.board_game_width):
+            rect = pygame.Rect(j * cell_width, i * cell_height, cell_width, cell_height)
+            pygame.draw.rect(screen, colors[game_board[i][j]], rect)
+
+    # definition des lignes du playing_board
+    line_color = (255, 255, 255)
+    # Dessiner les lignes verticales
+    for j in range(game.board_game_width):  
+        pygame.draw.line(screen, line_color, (j * cell_width, 0), (j * cell_width, height))
+    # Dessiner les lignes horizontales
+    for i in range(game.board_game_height): 
+        pygame.draw.line(screen, line_color, (0, i * cell_height), (game_board_width, i * cell_height))
+
+
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                joueurs[current_player_index].move("left", cell_height, cell_width, game)
+            elif event.key == pygame.K_RIGHT:
+                joueurs[current_player_index].move("right", cell_height, cell_width, game)
+            elif event.key == pygame.K_UP:
+                joueurs[current_player_index].move("up", cell_height, cell_width, game)
+            elif event.key == pygame.K_DOWN:
+                joueurs[current_player_index].move("down", cell_height, cell_width, game)
+            joueurs[current_player_index].check_fall(fall_sprites, gamer_sprites, cell_width, cell_height, game)
+
+            if event.key == pygame.K_SPACE:  # espace pour la confirmation de la fin du tour
+                current_player_index = (current_player_index + 1) % main.nb_gamers
+                joueurs[current_player_index].yell()
+                print(f"Passage au joueur {current_player_index + 1}")
+
+    
+    # définition visuelle de l'interface
+    interface_rect = pygame.Rect(interface_x, interface_y, interface_width, interface_height)
+    pygame.draw.rect(screen, interface_bg_color, interface_rect)
+    # pour afficher l'image de l'interface
+    screen.blit(interface_image, (interface_x, interface_y))
+
+    ### === mise à jour des scores
+    button_start_x = 1300  
+    button_start_y = 800   
+    button_x_ = button_start_x
+    button_y_ = button_start_y
+
+    max_buttons_per_row = 4  #nombre maximal de boutons par ligne
+    button_count = 0  # cpt de boutons pour contrôler la création de nouvelles lignes
+
+    for gamer in gamer_sprites:
+        draw_button(screen, gamer.player_name, button_x_, button_y_, 150, button_height, active_color, inactive_color,25)
+        draw_button(screen, f"{gamer.score}    {len(gamer.camembert_part)}/{game.end_game_max_camembert}", button_x_, button_y_ + 50, 150, button_height, active_color, inactive_color,25)
+
+        # mise à jour des positions des boutons pour le prochain joueur
+        button_x_ += 130
+        button_count += 1
+
+        # Passer à la ligne suivante si le nombre maximal de boutons est atteint
+        if button_count >= max_buttons_per_row:
+            button_x_ = button_start_x
+            button_y_ += 100  # Augmenter de 100 pour la prochaine ligne
+            button_count = 0
+    
+    # mise à jour le texte du bouton en fonction de l'état du jeu
+    texte_bouton = f"{joueurs[current_player_index].player_name} : Déplacez-vous"
+    draw_button(screen, texte_bouton, button_x, button_y, button_width, button_height, active_color, inactive_color, 40)
+        
+    ### === affichage des différentes categories
+    category_button_y = 550
+    category_button_x = 1450
+    category_button_width = 200
+    category_button_height = 40
+    incr_y = 40
+    for categorie in sql_game.categories():
+        category_color = (categorie[1], categorie[2], categorie[3])
+        draw_button(screen, categorie[0], category_button_x, category_button_y, category_button_width, category_button_height, category_color, category_color, 25)
+        category_button_y += incr_y
+
+    #on dessine les différents groupe de sprites
+    gamer_sprites.draw(screen)
+    gamer_sprites.update()
+    
+    camembert_sprites.draw(screen)
+    camembert_sprites.update()
+    
+    fall_sprites.draw(screen)
+    fall_sprites.update()
+
+    
+    # conditions de victoire et retourne le gagnant
+    winner = game.victory()
+
+    if winner is not None:
+        win_text = f"Le gagnant est {winner.player_name} avec un score de {winner.score}"
+        print(win_text)
+        draw_button(screen, win_text, 200, 200, 900, 500, inactive_color, inactive_color, 50)
+        screen.blit(winner.image, (620, 500))
+        music = pygame.mixer.music.load('sounds/Benny_Hill_Theme.wav')
+        pygame.mixer.music.set_volume(0.5) #1.0 volume max
+        pygame.mixer.music.play(-1)
+        pygame.display.flip()
+        #blit l'image en dessous du bouton avec un zoom
+        pygame.time.delay(10000) #en miliseconde 
+        running = False
+    
+    # Mettre à jour l'écran
+    pygame.display.flip()
+
+# enregistrement de la partie
+sql_game.end_game(game.id)
+for gamer in gamer_sprites:
+    sql_game.gamer_end_game(game.id, gamer.id, gamer.score, len(gamer.camembert_part))
+import last_game
+pygame.quit()

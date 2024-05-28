@@ -1,0 +1,166 @@
+categorie_name,question,answer,good_answer
+Actualités IA,qu'est ce que l'IA ?,processus d'imitation de l'intelligence humaine ,1
+Actualités IA,qu'est ce que l'IA ?,un outil capable de battre les meilleurs joueurs d'échecs du monde ,1
+Actualités IA,qu'est ce que l'IA ?,un acronyme signifiant Institut automatisé,0
+Actualités IA,qu'est ce que l'IA ?,un outil qui va mettre hors jeu un certain nombre de métier ,1
+Actualités IA,quels sont les fondateurs de l'IA ?,John Lennon,0
+Actualités IA,quels sont les fondateurs de l'IA ?,John McCarthy,1
+Actualités IA,quels sont les fondateurs de l'IA ?,Marvin Lee Minsky,1
+Actualités IA,quels sont les fondateurs de l'IA ?,Linus Torvald,0
+Actualités IA,Quelle est la version la plus récente de chatGPT en 2023 ?,GPT-4,1
+Actualités IA,Quelle est la version la plus récente de chatGPT en 2023 ?,GPT-3,0
+Actualités IA,Quelle est la version la plus récente de chatGPT en 2023 ?,GPT-5,0
+Actualités IA,Quelle est la version la plus récente de chatGPT en 2023 ?,GPT-6,0
+Actualités IA,qui est l'éditeur de chatGPT ?,OpenIA,0
+Actualités IA,qui est l'éditeur de chatGPT ?,AppleGPT-4,0
+Actualités IA,qui est l'éditeur de chatGPT ?,OpenAI,1
+Actualités IA,qui est l'éditeur de chatGPT ?,HeyGen,0
+Actualités IA,Quand l'ia depassera l'intelligence d'un humain selon Mo Gawdat (ex-directeur commercial de Google X) ?,en 2029,1
+Actualités IA,Quand l'ia depassera l'intelligence d'un humain selon Mo Gawdat (ex-directeur commercial de Google X) ?,en 2036,0
+Actualités IA,Quand l'ia depassera l'intelligence d'un humain selon Mo Gawdat (ex-directeur commercial de Google X) ?,en 2046,0
+Actualités IA,Quand l'ia depassera l'intelligence d'un humain selon Mo Gawdat (ex-directeur commercial de Google X) ?,en 2050,0
+Culture,"D'après ChatGPT, quelles sont les fromages qui sentent le plus fort ?","Le fromage qui sent le plus fort est souvent considéré comme le fromage de munster, le fromage bleu ou certains fromages à pâte molle comme le camembert bien affiné.",1
+Culture,"D'après ChatGPT, quelles sont les fromages qui sentent le plus fort ?","Le fromage qui sent le plus fort est souvent considéré comme le fromage de munster, le fromage bleu ou le maroille.",0
+Culture,"D'après ChatGPT, quelles sont les fromages qui sentent le plus fort ?","Le fromage qui sent le plus fort est souvent considéré comme le fromage de munster, le maroille ou l'époisse.",0
+Culture,"D'après ChatGPT, quelles sont les fromages qui sentent le plus fort ?","Le fromage qui sent le plus fort est souvent considéré comme le Kiri®, la Vache Qui Rit® ou le Babybel®.",0
+Culture,Qui est considéré·e comme le premier programmeur au monde ?,Grace Hopper,0
+Culture,Qui est considéré·e comme le premier programmeur au monde ?,John McCarthy,0
+Culture,Qui est considéré·e comme le premier programmeur au monde ?,Alan Turing,0
+Culture,Qui est considéré·e comme le premier programmeur au monde ?,Ada Lovelace,1
+Culture,Qui est considéré·e comme le premier calculateur électromécanique programmable binaire à virgule flottante ?,Alan Turing,0
+Culture,Qui est considéré·e comme le premier calculateur électromécanique programmable binaire à virgule flottante ?,Ada Lovelace,0
+Culture,Qui est considéré·e comme le premier calculateur électromécanique programmable binaire à virgule flottante ?,Konrad Zuse,1
+Culture,Qui est considéré·e comme le premier calculateur électromécanique programmable binaire à virgule flottante ?,Bill Gates,0
+Culture,Qui est considéré·e comme le premier calculateur électromécanique programmable binaire à virgule flottante ?,Steve Jobs,0
+SQL,Quelle est la syntaxe correcte pour sélectionner toutes les colonnes d'une table appelée 'employes' ?,SELECT * FROM employes,1
+SQL,Quelle est la syntaxe correcte pour sélectionner toutes les colonnes d'une table appelée 'employes' ?,SELECT columns(employes),0
+SQL,Quelle est la syntaxe correcte pour sélectionner toutes les colonnes d'une table appelée 'employes' ?,SHOW ALL employes;,0
+SQL,Quelle est la syntaxe correcte pour sélectionner toutes les colonnes d'une table appelée 'employes' ?,GET employes;,0
+SQL,Quelle fonction est utilisée pour trouver le nombre de lignes dans une table ?,COUNT(*),1
+SQL,Quelle fonction est utilisée pour trouver le nombre de lignes dans une table ?,NUMROWS(),0
+SQL,Quelle fonction est utilisée pour trouver le nombre de lignes dans une table ?,TOTALROWS(),0
+SQL,Quelle fonction est utilisée pour trouver le nombre de lignes dans une table ?,ROWCOUNT(),0
+SQL,Quelle déclaration est utilisée pour ajouter une nouvelle colonne appelée 'age' à une table existante nommée 'clients' ?,ALTER TABLE clients ADD COLUMN age INT,1
+SQL,Quelle déclaration est utilisée pour ajouter une nouvelle colonne appelée 'age' à une table existante nommée 'clients' ?,UPDATE TABLE clients SET age = INT,0
+SQL,Quelle déclaration est utilisée pour ajouter une nouvelle colonne appelée 'age' à une table existante nommée 'clients' ?,ADD age TO TABLE clients,0
+SQL,Quelle déclaration est utilisée pour ajouter une nouvelle colonne appelée 'age' à une table existante nommée 'clients' ?,MODIFY clients ADD COLUMN age INT,0
+SQL,Que fait la clause WHERE dans une requête SQL ?,Elle spécifie l'ordre des résultats,0
+SQL,Que fait la clause WHERE dans une requête SQL ?,Elle filtre les résultats en fonction d'une condition,1
+SQL,Que fait la clause WHERE dans une requête SQL ?,Elle combine les résultats de plusieurs tables,0
+SQL,Que fait la clause WHERE dans une requête SQL ?,Elle effectue une agrégation sur les résultats,0
+SQL,Quelle est la différence entre GROUP BY et ORDER BY dans une requête SQL ?,"GROUP BY est utilisé pour regrouper les lignes en fonction d'une colonne, tandis que ORDER BY est utilisé pour trier les résultats en fonction d'une colonne.",1
+SQL,Quelle est la différence entre GROUP BY et ORDER BY dans une requête SQL ?,"ORDER BY est utilisé pour regrouper les lignes en fonction d'une colonne, tandis que GROUP BY est utilisé pour trier les résultats en fonction d'une ligne.",0
+SQL,Quelle est la différence entre GROUP BY et ORDER BY dans une requête SQL ?,GROUP BY et ORDER BY sont interchangeables et peuvent être utilisés de la même manière.,0
+SQL,Quelle est la différence entre GROUP BY et ORDER BY dans une requête SQL ?,GROUP BY et ORDER BY sont utilisés pour filtrer les résultats en fonction de conditions spécifiques.,0
+SQL,Que fait cette requête : INSERT INTO ma_table SELECT * FROM mon_autre_table,Ce code ne fonctionne pas.,0
+SQL,Que fait cette requête : INSERT INTO ma_table SELECT * FROM mon_autre_table,"On ajoute toutes les données de `mon_autre_table` dans `ma_table`, à condition que les champs aient le même nom.",0
+SQL,Que fait cette requête : INSERT INTO ma_table SELECT * FROM mon_autre_table,"On ajoute toutes les données de `mon_autre_table` dans `ma_table`, à condition qu'il y ait le même nombre de champs et de même type.",1
+Python,Quelle est la méthode correcte pour ouvrir un fichier en mode écriture (write) en Python ?,"file = open('example.txt', 'r')",0
+Python,Quelle est la méthode correcte pour ouvrir un fichier en mode écriture (write) en Python ?,"file = open('example.txt', 'w')",1
+Python,Quelle est la méthode correcte pour ouvrir un fichier en mode écriture (write) en Python ?,"file = open('example.txt', 'write')",0
+Python,Quelle est la méthode correcte pour ouvrir un fichier en mode écriture (write) en Python ?,"file = open('example.txt', mode='write')",0
+Python,Comment déclare-t-on une liste vide en Python ?,list = {},0
+Python,Comment déclare-t-on une liste vide en Python ?,list = [],1
+Python,Comment déclare-t-on une liste vide en Python ?,list = new List(),0
+Python,Comment déclare-t-on une liste vide en Python ?,list = list(),0
+Python,Quelle est la différence entre '==' et 'is' en Python ?,"==' compare le contenu, 'is' compare l'identité des objets",1
+Python,Quelle est la différence entre '==' et 'is' en Python ?,"is' compare le contenu, '==' compare l'identité des objets",0
+Python,Quelle est la différence entre '==' et 'is' en Python ?, '==' et 'is' sont interchangeables,0
+Python,Quelle est la différence entre '==' et 'is' en Python ?,"is' est utilisé pour les nombres, '==' pour les chaînes de caractères",0
+Python,Comment ajoute-t-on un élément à la fin d'une liste en Python ?,list.append(item),1
+Python,Comment ajoute-t-on un élément à la fin d'une liste en Python ?,list.add(item),0
+Python,Comment ajoute-t-on un élément à la fin d'une liste en Python ?,list.insert(item),0
+Python,Comment ajoute-t-on un élément à la fin d'une liste en Python ?,list.extend(item),0
+Python,Quelle est la fonction utilisée pour obtenir la longueur d'une chaîne de caractères en Python ?,length(str),0
+Python,Quelle est la fonction utilisée pour obtenir la longueur d'une chaîne de caractères en Python ?,str.size(),0
+Python,Quelle est la fonction utilisée pour obtenir la longueur d'une chaîne de caractères en Python ?,len(str),1
+Python,Quelle est la fonction utilisée pour obtenir la longueur d'une chaîne de caractères en Python ?,stringLength(str),0
+Ligne de commandes,Quelle est la commande pour afficher le chemin d'accès vers le répertoire où se situe l'utilisateur qui a entré la commande ?,$ dwd,0
+Ligne de commandes,Quelle est la commande pour afficher le chemin d'accès vers le répertoire où se situe l'utilisateur qui a entré la commande ?,$ gwd,0
+Ligne de commandes,Quelle est la commande pour afficher le chemin d'accès vers le répertoire où se situe l'utilisateur qui a entré la commande ?,$ pwd,1
+Ligne de commandes,Quelle est la commande pour afficher le chemin d'accès vers le répertoire où se situe l'utilisateur qui a entré la commande ?,$ cd,0
+Ligne de commandes,Quelle est la commande pour afficher le chemin d'accès vers le répertoire où se situe l'utilisateur qui a entré la commande ?,$ ls,0
+Ligne de commandes,Quelle est la commande pour afficher le chemin d'accès vers le répertoire où se situe l'utilisateur qui a entré la commande ?,$ tu_vas_me_dire_ou_je_me_trouve,0
+Ligne de commandes,Quelle commande est utilisée pour afficher le contenu d'un fichier texte dans le terminal ?,$ show,0
+Ligne de commandes,Quelle commande est utilisée pour afficher le contenu d'un fichier texte dans le terminal ?,$ display,0
+Ligne de commandes,Quelle commande est utilisée pour afficher le contenu d'un fichier texte dans le terminal ?,$ cat,1
+Ligne de commandes,Quelle commande est utilisée pour afficher le contenu d'un fichier texte dans le terminal ?,$ read,0
+Ligne de commandes,Quelle commande est utilisée pour changer de répertoire ?,$ switchdir,0
+Ligne de commandes,Quelle commande est utilisée pour changer de répertoire ?,$ cd,1
+Ligne de commandes,Quelle commande est utilisée pour changer de répertoire ?,$ changedir,0
+Ligne de commandes,Quelle commande est utilisée pour changer de répertoire ?,$ chdir,0
+Ligne de commandes,Quelle commande permet de lister les fichiers et répertoires dans le répertoire courant ?,$ ls,1
+Ligne de commandes,Quelle commande permet de lister les fichiers et répertoires dans le répertoire courant ?,$ dir,0
+Ligne de commandes,Quelle commande permet de lister les fichiers et répertoires dans le répertoire courant ?,$ list,0
+Ligne de commandes,Quelle commande permet de lister les fichiers et répertoires dans le répertoire courant ?,$ showdir,0
+Ligne de commandes,Comment crée-t-on un nouveau répertoire ?,$ rd,0
+Ligne de commandes,Comment crée-t-on un nouveau répertoire ?,$ newdir,0
+Ligne de commandes,Comment crée-t-on un nouveau répertoire ?,$ mkdir,1
+Ligne de commandes,Comment crée-t-on un nouveau répertoire ?,$ mkfile,0
+Ligne de commandes,Quelle commande supprime un fichier ou un répertoire ?,$ del,0
+Ligne de commandes,Quelle commande supprime un fichier ou un répertoire ?,$ remove,0
+Ligne de commandes,Quelle commande supprime un fichier ou un répertoire ?,$ rm,1
+Ligne de commandes,Quelle commande supprime un fichier ou un répertoire ?,$ erase,0
+Ligne de commandes,Quelle commande est utilisée pour copier des fichiers et des répertoires ?,$ cp,1
+Ligne de commandes,Quelle commande est utilisée pour copier des fichiers et des répertoires ?,$ copy,0
+Ligne de commandes,Quelle commande est utilisée pour copier des fichiers et des répertoires ?,$ mv,0
+Ligne de commandes,Quelle commande est utilisée pour copier des fichiers et des répertoires ?,$ paste,0
+Ligne de commandes,Comment renomme-t-on un fichier en ligne de commande ?,$ rename,0
+Ligne de commandes,Comment renomme-t-on un fichier en ligne de commande ?,$ move,0
+Ligne de commandes,Comment renomme-t-on un fichier en ligne de commande ?,$ change,0
+Ligne de commandes,Comment renomme-t-on un fichier en ligne de commande ?,$ mv,1
+Ligne de commandes,Quelle commande affiche l'utilisation de l'espace disque ?,$ diskusage,0
+Ligne de commandes,Quelle commande affiche l'utilisation de l'espace disque ?,$ du,1
+Ligne de commandes,Quelle commande affiche l'utilisation de l'espace disque ?,$ space,0
+Ligne de commandes,Quelle commande affiche l'utilisation de l'espace disque ?,$ usage,0
+Ligne de commandes,Quelle commande permet d'exécuter une commande avec des privilèges d'administration ?,$ su,0
+Ligne de commandes,Quelle commande permet d'exécuter une commande avec des privilèges d'administration ?,$ runas,0
+Ligne de commandes,Quelle commande permet d'exécuter une commande avec des privilèges d'administration ?,$ sudo,1
+Ligne de commandes,Quelle commande permet d'exécuter une commande avec des privilèges d'administration ?,$ admin,0
+Ligne de commandes,Quelle commande crée un nouveau fichier vide ?,$ touch,1
+Ligne de commandes,Quelle commande crée un nouveau fichier vide ?,$ newfile,0
+Ligne de commandes,Quelle commande crée un nouveau fichier vide ?,$ mk,0
+Ligne de commandes,Quelle commande crée un nouveau fichier vide ?,$ create,0
+Git/GitHub,Quel est le but principal de Git ?,Gérer des bases de données,0
+Git/GitHub,Quel est le but principal de Git ?,Suivre les changements dans le code source,1
+Git/GitHub,Quel est le but principal de Git ?,Envoyer des e-mails,1
+Git/GitHub,Quel est le but principal de Git ?,Créer des pages web,0
+Git/GitHub,Qu'est-ce que GitHub ?,Un langage de programmation,0
+Git/GitHub,Qu'est-ce que GitHub ?,Un service d'hébergement de projets utilisant Git,1
+Git/GitHub,Qu'est-ce que GitHub ?,Un éditeur de texte en ligne,0
+Git/GitHub,Qu'est-ce que GitHub ?,Un système d'exploitation,1
+Git/GitHub,Quelle commande Git est utilisée pour cloner un référentiel distant localement ?,git init,0
+Git/GitHub,Quelle commande Git est utilisée pour cloner un référentiel distant localement ?,git pull,0
+Git/GitHub,Quelle commande Git est utilisée pour cloner un référentiel distant localement ?,git clone,1
+Git/GitHub,Quelle commande Git est utilisée pour cloner un référentiel distant localement ?,git push,1
+Git/GitHub,Quelle est la différence entre 'git merge' et 'git rebase' ?,"git merge' combine les changements de deux branches, tandis que 'git rebase' réécrit l'historique",1
+Git/GitHub,Quelle est la différence entre 'git merge' et 'git rebase' ?,"git rebase' combine les changements de deux branches, tandis que 'git merge' réécrit l'historique",0
+Git/GitHub,Quelle est la différence entre 'git merge' et 'git rebase' ?,Ces commandes ne sont pas utilisées dans Git,0
+Git/GitHub,Quelle est la commande pour créer une nouvelle branche et basculer vers celle-ci en une seule étape ?,git branch feature_branch,0
+Git/GitHub,Quelle est la commande pour créer une nouvelle branche et basculer vers celle-ci en une seule étape ?,git checkout -b feature_branch,1
+Git/GitHub,Quelle est la commande pour créer une nouvelle branche et basculer vers celle-ci en une seule étape ?,git switch -c feature_branch,1
+Git/GitHub,Quelle est la commande pour créer une nouvelle branche et basculer vers celle-ci en une seule étape ?,git create feature_branch,0
+Culture,Qui est considéré comme le père de l'informatique moderne pour son travail sur la machine analytique ?,Charles Babbage,1
+Culture,Qui est considéré comme le père de l'informatique moderne pour son travail sur la machine analytique ?,Alan Turing,0
+Culture,Qui est considéré comme le père de l'informatique moderne pour son travail sur la machine analytique ?,Ada Lovelace,0
+Culture,Qui a développé le premier compilateur pour un langage de programmation ?,Grace Hopper,1
+Culture,Qui a développé le premier compilateur pour un langage de programmation ?,Dennis Ritchie,0
+Culture,Qui a développé le premier compilateur pour un langage de programmation ?,John von Neumann,0
+Culture,Qui a fondé Microsoft et est devenu l'un des pionniers de l'industrie informatique ?,Bill Gates,1
+Culture,Qui a fondé Microsoft et est devenu l'un des pionniers de l'industrie informatique ?,Steve Jobs,0
+Culture,Qui a fondé Microsoft et est devenu l'un des pionniers de l'industrie informatique ?,Larry Page,0
+Culture,Qui a inventé le World Wide Web (WWW) en proposant le premier serveur web et le premier navigateur web ?,Tim Berners-Lee,1
+Culture,Qui a inventé le World Wide Web (WWW) en proposant le premier serveur web et le premier navigateur web ?,Marc Andreessen,0
+Culture,Qui a inventé le World Wide Web (WWW) en proposant le premier serveur web et le premier navigateur web ?,Linus Torvalds,0
+Culture,"Qui a créé le langage de programmation BASIC, facilitant ainsi l'accès à la programmation pour les débutants ?",John McCarthy,0
+Culture,"Qui a créé le langage de programmation BASIC, facilitant ainsi l'accès à la programmation pour les débutants ?",Alan Kay,0
+Culture,"Qui a créé le langage de programmation BASIC, facilitant ainsi l'accès à la programmation pour les débutants ?",John Kemeny et Thomas Kurtz,1
+Culture,Qui est considéré comme le père de la théorie des algorithmes modernes ?,Donald Knuth,0
+Culture,Qui est considéré comme le père de la théorie des algorithmes modernes ?,Edsger Dijkstra,0
+Culture,Qui est considéré comme le père de la théorie des algorithmes modernes ?,Alan Turing,1
+Culture,Qui est connu pour son développement du langage de programmation C et pour avoir contribué au développement du système d'exploitation Unix ?,Dennis Ritchie,1
+Culture,Qui est connu pour son développement du langage de programmation C et pour avoir contribué au développement du système d'exploitation Unix ?,Ken Thompson,0
+Culture,Qui est connu pour son développement du langage de programmation C et pour avoir contribué au développement du système d'exploitation Unix ?,Linus Torvalds,0
+Culture,Qui a créé le concept de la programmation orientée objet et développé le langage de programmation Simula ?,Alan Kay,0
+Culture,Qui a créé le concept de la programmation orientée objet et développé le langage de programmation Simula ?,Grace Hopper,0
+Culture,Qui a créé le concept de la programmation orientée objet et développé le langage de programmation Simula ?,Ole-Johan Dahl et Kristen Nygaard,1
