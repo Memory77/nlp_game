@@ -4,12 +4,17 @@ from gamers import *
 import random
 import main
 import sql_game
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
 
-#quelques fonctions, a mettre surement dans un autre fichier plus tard
+# quelques fonctions, à mettre sûrement dans un autre fichier plus tard
 def draw_button(screen, text, x, y, width, height, active_color, inactive_color, font_size):
     mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
     if x + width > mouse[0] > x and y + height > mouse[1] > y:
         pygame.draw.rect(screen, active_color, (x, y, width, height))
+        if click[0] == 1:
+            return True
     else:
         pygame.draw.rect(screen, inactive_color, (x, y, width, height))
     
@@ -18,7 +23,7 @@ def draw_button(screen, text, x, y, width, height, active_color, inactive_color,
     text_rect = text_surf.get_rect()
     text_rect.center = ((x + (width / 2)), (y + (height / 2)))
     screen.blit(text_surf, text_rect)
-    
+    return False
 
 def auto_wrap(text: str, nb_characters: int) -> str:
     # permet de faire les retours à la ligne automatiquement
@@ -37,7 +42,26 @@ def auto_wrap(text: str, nb_characters: int) -> str:
 
     return wrapped_lines
 
-    
+def are_players_adjacent(player1, player2):
+    return abs(player1.x - player2.x) <= 1 and abs(player1.y - player2.y) <= 1
+
+def draw_dialogue_box(screen, text, x, y, width, height, color):
+    font = pygame.font.SysFont(None, 25)
+    pygame.draw.rect(screen, color, (x, y, width, height))
+    wrapped_lines = auto_wrap(text, 40)
+    for i, line in enumerate(wrapped_lines):
+        text_surf = font.render(line, True, (0, 0, 0))
+        screen.blit(text_surf, (x + 10, y + 10 + i * 20))
+
+# Initialisation du modèle DialoGPT
+tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
+model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
+
+def get_response_from_model(chat_history_ids, new_user_input_ids):
+    bot_input_ids = torch.cat([chat_history_ids, new_user_input_ids], dim=-1) if chat_history_ids is not None else new_user_input_ids
+    chat_history_ids = model.generate(bot_input_ids, max_length=1000, pad_token_id=tokenizer.eos_token_id)
+    return chat_history_ids
+
 # AFFICHAGE PYGAME
 
 # Initialisation de Pygame
@@ -55,13 +79,11 @@ if random_music == 'Fort_Boyard.wav':
     pygame.mixer.music.set_volume(0.6)
 pygame.mixer.music.play(-1)
 
-
 width, height = 1800, 1000  # Ajustez selon vos besoins
 screen = pygame.display.set_mode((width, height))
 
-
-## === INTERFACE (coté droit, pour tout ce qui est interaction questions etc.)
-#dimensions de l'interface
+## === INTERFACE (côté droit, pour tout ce qui est interaction questions etc.)
+# dimensions de l'interface
 interface_width = 500  
 interface_height = height  # même hauteur que votre fenêtre de jeu
 interface_x = width - interface_width  #  positionne l'interface à droite
@@ -71,7 +93,7 @@ interface_bg_color = (255, 255, 255)
 interface_image = pygame.image.load('img/interface_img.png')  
 interface_image = pygame.transform.scale(interface_image, (interface_width, interface_height))  # redimensionner l'image
 
-# dimensions du bouton principal de l'interface pour l'interaction(dé, questions etc)
+# dimensions du bouton principal de l'interface pour l'interaction (dé, questions etc)
 button_x = interface_x + 50
 button_y = 100
 button_width = 400
@@ -81,34 +103,29 @@ inactive_color = (10, 210, 255)
 answer_active_color = (255, 180, 105)
 answer_inactive_color = (10, 255, 210)
 
-
-
-## === PLATEAU DE JEU (coté gauche, cependant, il est réellement defini dans la boucle de jeu car doit se mettre à jour)
-
-#liste contenant les id de toutes les categories 
+## === PLATEAU DE JEU (côté gauche, cependant, il est réellement défini dans la boucle de jeu car doit se mettre à jour)
+# liste contenant les id de toutes les catégories 
 cat_id = []
 colors = {}
 for categorie in sql_game.categories():
     cat_id.append(categorie[0])
     colors[categorie[0]] = (categorie[1], categorie[2], categorie[3])
 
-np.random.seed(5)#graine pour figer le random choice 
+np.random.seed(5) # graine pour figer le random choice 
 game_board = np.random.choice(cat_id, size=(main.board_game_height, main.board_game_width))
-
 
 # import du nouveau jeu
 game = main.new_game()
 
-# definition de la largeur du plateau de jeu en soustrayant la largeur de l'interface
+# définition de la largeur du plateau de jeu en soustrayant la largeur de l'interface
 game_board_width = width - interface_width
 
-# definition des cellules par rapport au playing board et des dimensions de l'écran afin de pouvoir positionner les entités apres
+# définition des cellules par rapport au playing board et des dimensions de l'écran afin de pouvoir positionner les entités après
 cell_width = game_board_width  // game.board_game_width
 cell_height = height // game.board_game_height
 
-
-#=== INITIALISATION DES JOUEURS ET DES ELEMENTS 
-# creation des joueurs 
+# === INITIALISATION DES JOUEURS ET DES ÉLÉMENTS 
+# création des joueurs 
 gamer_sprites = pygame.sprite.Group()
 joueurs = []
 game_gamers_sprite = game.gamers_sprite()
@@ -119,12 +136,12 @@ for gamer in game_gamers_sprite:
     gamer.set_params(gamer.personnage)
 print(f'''Que le jeu TRIV POURSUITE IA COMMENCE !
       
-      Tu dois avoir ton score supérieur ou égale à {game.end_game_max_points} ou récolter les {game.end_game_max_camembert} camemberts de couleur
+      Tu dois avoir ton score supérieur ou égal à {game.end_game_max_points} ou récolter les {game.end_game_max_camembert} camemberts de couleur
       en répondant aux questions pour remporter la victoire !
       Bonne chance :) 
       ''')
 
-#creation des camemberts
+# création des camemberts
 camembert_pink = Element(0, 0, "camembert", "pink")
 camembert_green = Element(0, 0, "camembert", "green")
 camembert_blue = Element(0, 0, "camembert", "blue")
@@ -140,7 +157,7 @@ camembert_sprites.add(camembert_yellow)
 camembert_sprites.add(camembert_purple)
 camembert_sprites.add(camembert_orange)
 
-#création des trous
+# création des trous
 fall_one = Element(0, 0, "fall")
 fall_two = Element(0, 0, "fall")
 
@@ -148,13 +165,12 @@ fall_sprites = pygame.sprite.Group()
 fall_sprites.add(fall_one)
 fall_sprites.add(fall_two)
 
-#requalibration de la position et de l'image du camembert (6 camemberts disposés dans le plateau)
+# requalification de la position et de l'image du camembert (6 camemberts disposés dans le plateau)
 camembert_pink.set_position(2, 11, cell_width, cell_height)
 camembert_pink.set_image()
 
 camembert_green.set_position(11, 21, cell_width, cell_height)
 camembert_green.set_image()
-
 
 camembert_blue.set_position(10, 5, cell_width, cell_height)
 camembert_blue.set_image()
@@ -168,7 +184,7 @@ camembert_purple.set_image()
 camembert_orange.set_position(2, 20, cell_width, cell_height)
 camembert_orange.set_image()
 
-#idem pour le trou
+# idem pour le trou
 fall_one.set_position(10, 13, cell_width, cell_height)
 fall_one.set_image()
 
@@ -179,18 +195,22 @@ fall_two.set_image()
 ETAT_JEU = 1
 etat_jeu = ETAT_JEU
 current_player_index = 0
+conversation_open = False
+input_text = ""
+chat_history_ids = None
+conversation_partner = None
 
 # Boucle principale
 running = True
 while running:
     
-    #definition visuel du plateau (qui est remis à jour a chaque tour dans la boucle)
+    # définition visuelle du plateau (qui est remis à jour à chaque tour dans la boucle)
     for i in range(game.board_game_height):
         for j in range(game.board_game_width):
             rect = pygame.Rect(j * cell_width, i * cell_height, cell_width, cell_height)
             pygame.draw.rect(screen, colors[game_board[i][j]], rect)
 
-    # definition des lignes du playing_board
+    # définition des lignes du playing_board
     line_color = (255, 255, 255)
     # Dessiner les lignes verticales
     for j in range(game.board_game_width):  
@@ -199,13 +219,11 @@ while running:
     for i in range(game.board_game_height): 
         pygame.draw.line(screen, line_color, (0, i * cell_height), (game_board_width, i * cell_height))
 
-
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN and not conversation_open:
             if event.key == pygame.K_LEFT:
                 joueurs[current_player_index].move("left", cell_height, cell_width, game)
             elif event.key == pygame.K_RIGHT:
@@ -223,25 +241,37 @@ while running:
                 joueurs[current_player_index].yell()
                 print(f"Passage au joueur {current_player_index + 1}")
 
-    
+        if event.type == pygame.KEYDOWN and conversation_open:
+            if event.key == pygame.K_RETURN:
+                new_user_input_ids = tokenizer.encode(input_text + tokenizer.eos_token, return_tensors='pt')
+                chat_history_ids = get_response_from_model(chat_history_ids, new_user_input_ids)
+                response = tokenizer.decode(chat_history_ids[:, new_user_input_ids.shape[-1]:][0], skip_special_tokens=True)
+                input_text = ""
+                print(f"{conversation_partner.player_name}: {response}")
+
+            elif event.key == pygame.K_BACKSPACE:
+                input_text = input_text[:-1]
+            else:
+                input_text += event.unicode
+
     # définition visuelle de l'interface
     interface_rect = pygame.Rect(interface_x, interface_y, interface_width, interface_height)
     pygame.draw.rect(screen, interface_bg_color, interface_rect)
     # pour afficher l'image de l'interface
     screen.blit(interface_image, (interface_x, interface_y))
 
-    ### === mise à jour des scores
+    # mise à jour des scores
     button_start_x = 1300  
     button_start_y = 800   
     button_x_ = button_start_x
     button_y_ = button_start_y
 
-    max_buttons_per_row = 4  #nombre maximal de boutons par ligne
+    max_buttons_per_row = 4  # nombre maximal de boutons par ligne
     button_count = 0  # cpt de boutons pour contrôler la création de nouvelles lignes
 
     for gamer in gamer_sprites:
-        draw_button(screen, gamer.player_name, button_x_, button_y_, 150, button_height, active_color, inactive_color,25)
-        draw_button(screen, f"{gamer.score}    {len(gamer.camembert_part)}/{game.end_game_max_camembert}", button_x_, button_y_ + 50, 150, button_height, active_color, inactive_color,25)
+        draw_button(screen, gamer.player_name, button_x_, button_y_, 150, button_height, active_color, inactive_color, 25)
+        draw_button(screen, f"{gamer.score}    {len(gamer.camembert_part)}/{game.end_game_max_camembert}", button_x_, button_y_ + 50, 150, button_height, active_color, inactive_color, 25)
 
         # mise à jour des positions des boutons pour le prochain joueur
         button_x_ += 130
@@ -257,7 +287,7 @@ while running:
     texte_bouton = f"{joueurs[current_player_index].player_name} : Déplacez-vous"
     draw_button(screen, texte_bouton, button_x, button_y, button_width, button_height, active_color, inactive_color, 40)
         
-    ### === affichage des différentes categories
+    # affichage des différentes catégories
     category_button_y = 550
     category_button_x = 1450
     category_button_width = 200
@@ -268,7 +298,7 @@ while running:
         draw_button(screen, categorie[0], category_button_x, category_button_y, category_button_width, category_button_height, category_color, category_color, 25)
         category_button_y += incr_y
 
-    #on dessine les différents groupe de sprites
+    # dessiner les différents groupe de sprites
     gamer_sprites.draw(screen)
     gamer_sprites.update()
     
@@ -278,6 +308,21 @@ while running:
     fall_sprites.draw(screen)
     fall_sprites.update()
 
+    # vérifier la proximité des joueurs et afficher le bouton "Dialoguer"
+    if not conversation_open:
+        for i, gamer1 in enumerate(joueurs):
+            for j, gamer2 in enumerate(joueurs):
+                if i != j and are_players_adjacent(gamer1, gamer2):
+                    if draw_button(screen, "Dialoguer", 50, 850, 200, 50, active_color, inactive_color, 30):
+                        conversation_open = True
+                        conversation_partner = gamer2
+
+    # afficher la fenêtre de conversation si elle est ouverte
+    if conversation_open:
+        draw_dialogue_box(screen, f"Conversation avec {conversation_partner.player_name}", 400, 400, 1000, 200, (255, 255, 255))
+        draw_dialogue_box(screen, input_text, 400, 620, 1000, 50, (200, 200, 200))
+        if draw_button(screen, "Fermer", 1300, 550, 100, 50, active_color, inactive_color, 30):
+            conversation_open = False
     
     # conditions de victoire et retourne le gagnant
     winner = game.victory()
@@ -288,11 +333,10 @@ while running:
         draw_button(screen, win_text, 200, 200, 900, 500, inactive_color, inactive_color, 50)
         screen.blit(winner.image, (620, 500))
         music = pygame.mixer.music.load('sounds/Benny_Hill_Theme.wav')
-        pygame.mixer.music.set_volume(0.5) #1.0 volume max
+        pygame.mixer.music.set_volume(0.5) # 1.0 volume max
         pygame.mixer.music.play(-1)
         pygame.display.flip()
-        #blit l'image en dessous du bouton avec un zoom
-        pygame.time.delay(10000) #en miliseconde 
+        pygame.time.delay(10000) # en millisecondes 
         running = False
     
     # Mettre à jour l'écran

@@ -16,7 +16,9 @@ class Gamer(pygame.sprite.Sprite):
         self.sound = []
         self.personnage = personnage
         self.current_camembert = None
-
+        self.lore = ""
+        self.caracter = ""
+        
     def set_position(self, row, col, cell_width, cell_height):
         # définit la position du sprite basée sur la position de la cellule du tableau
         self.rect.x = col * cell_width
@@ -67,18 +69,26 @@ class Gamer(pygame.sprite.Sprite):
             self.sound.append('deadpool.wav')
             self.sound.append('alright-already.wav')
             self.sound.append('are-you-crazy.wav')
+            self.caracter = "Deadpool"
+            self.lore = ""
         elif personnage == 2: 
             self.image = pygame.image.load('img/big_player_two.png')
             self.sound.append('captain_america.wav')
+            self.caracter = "Captain America"
+            self.lore = ""
         elif personnage == 3:
             self.image = pygame.image.load('img/big_player_tree.png')
             self.sound.append('work-work.wav')
             self.sound.append('humain-travail.wav')
             self.sound.append('orc.wav')
+            self.caracter = "Orc"
+            self.lore = ""
         elif personnage == 4:
             self.image = pygame.image.load('img/big_player_four.png')
             self.sound.append('naruto-chakra.wav')
             self.sound.append('ha-ha.wav')
+            self.caracter = "Naruto"
+            self.lore = ""
         elif personnage == 5:
             self.image = pygame.image.load('img/big_player_five.png')
             self.sound.append('naruto-chakra.wav')
