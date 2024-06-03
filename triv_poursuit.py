@@ -23,12 +23,15 @@ openai.api_base = api_base
 openai.api_type = 'azure'
 openai.api_version = api_version
 
-# Fonction pour appeler l'API et obtenir une réponse
-def get_response(prompt):
+# Fonction pour appeler l'API et obtenir une réponse en incluant les attributs du joueur
+def get_response(prompt, character, lore):
+    preprompt = f"You are conversing with a character. The character's traits are as follows:\nCharacter: {character}\nLore: {lore}\n"
+    full_prompt = preprompt + prompt
+
     response = openai.ChatCompletion.create(
         engine=api_deployment,
         messages=[
-            {"role": "system", "content": "You are an orc."},
+            {"role": "system", "content": preprompt},
             {"role": "user", "content": prompt}
         ],
         max_tokens=100
@@ -40,6 +43,7 @@ def get_response(prompt):
         return response['choices'][0]['message']['content'].strip()
     except KeyError:
         return response['choices'][0]['text'].strip()  # Essayez cette structure si la première échoue
+
 
 # quelques fonctions, à mettre sûrement dans un autre fichier plus tard
 def draw_button(screen, text, x, y, width, height, active_color, inactive_color, font_size):
@@ -228,7 +232,6 @@ conversation_partner = None
 # Boucle principale
 running = True
 while running:
-    
     # définition visuelle du plateau (qui est remis à jour à chaque tour dans la boucle)
     for i in range(game.board_game_height):
         for j in range(game.board_game_width):
@@ -268,7 +271,7 @@ while running:
 
         if event.type == pygame.KEYDOWN and conversation_open:
             if event.key == pygame.K_RETURN:
-                response = get_response(input_text)
+                response = get_response(input_text, conversation_partner.caracter, conversation_partner.lore)
                 input_text = ""
                 print(f"{conversation_partner.player_name}: {response}")
                 draw_dialogue_box(screen, response, 400, 700, 1000, 200, (255, 255, 255))
