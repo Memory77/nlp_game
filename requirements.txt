@@ -1,4 +1,3 @@
-pygame==2.5.2
-transformers 
-torch
-pandas
+python-dotenv
+openai==0.28.0
+Flask
