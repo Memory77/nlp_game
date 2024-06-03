@@ -339,7 +339,7 @@ while running:
                 if i != j and are_players_adjacent(gamer1, gamer2):
                     if draw_button(screen, "Dialoguer", 50, 850, 200, 50, active_color, inactive_color, 30):
                         conversation_open = True
-                        conversation_partner = gamer2
+                        conversation_partner = gamer2 if current_player_index == i else gamer1
 
     # afficher la fenêtre de conversation si elle est ouverte
     if conversation_open:
