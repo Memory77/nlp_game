@@ -4,8 +4,42 @@ from gamers import *
 import random
 import main
 import sql_game
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
+import os
+import openai
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement à partir du fichier .env
+load_dotenv()
+
+# Récupérer les valeurs des variables d'environnement
+api_key = os.getenv('openai_api_key')
+api_base = os.getenv('openai_api_key_base')
+api_deployment = os.getenv('openai_api_deployment')
+api_version = os.getenv('openai_api_version')
+
+# Configurer l'API OpenAI avec les informations d'Azure
+openai.api_key = api_key
+openai.api_base = api_base
+openai.api_type = 'azure'
+openai.api_version = api_version
+
+# Fonction pour appeler l'API et obtenir une réponse
+def get_response(prompt):
+    response = openai.ChatCompletion.create(
+        engine=api_deployment,
+        messages=[
+            {"role": "system", "content": "You are an orc."},
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens=100
+    )
+    print("Réponse brute de l'API:", response)
+    
+    # Extraction du contenu de la réponse en vérifiant les différentes structures possibles
+    try:
+        return response['choices'][0]['message']['content'].strip()
+    except KeyError:
+        return response['choices'][0]['text'].strip()  # Essayez cette structure si la première échoue
 
 # quelques fonctions, à mettre sûrement dans un autre fichier plus tard
 def draw_button(screen, text, x, y, width, height, active_color, inactive_color, font_size):
@@ -52,32 +86,6 @@ def draw_dialogue_box(screen, text, x, y, width, height, color):
     for i, line in enumerate(wrapped_lines):
         text_surf = font.render(line, True, (0, 0, 0))
         screen.blit(text_surf, (x + 10, y + 10 + i * 20))
-
-# Initialisation du modèle DialoGPT
-tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-large")
-model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-large")
-
-def get_response_from_model(chat_history_ids, new_user_input_ids):
-    if chat_history_ids is not None:
-        bot_input_ids = torch.cat([chat_history_ids, new_user_input_ids], dim=-1)
-    else:
-        bot_input_ids = new_user_input_ids
-
-    chat_history_ids = model.generate(
-        bot_input_ids, 
-        max_length=1000, 
-        pad_token_id=tokenizer.eos_token_id,
-        do_sample=True,
-        top_p=0.92,
-        top_k=50
-    )
-    
-    response = tokenizer.decode(
-        chat_history_ids[:, bot_input_ids.shape[-1]:][0], 
-        skip_special_tokens=True
-    )
-
-    return response, chat_history_ids
 
 # AFFICHAGE PYGAME
 
@@ -260,8 +268,7 @@ while running:
 
         if event.type == pygame.KEYDOWN and conversation_open:
             if event.key == pygame.K_RETURN:
-                new_user_input_ids = tokenizer.encode(input_text + tokenizer.eos_token, return_tensors='pt')
-                response, chat_history_ids = get_response_from_model(chat_history_ids, new_user_input_ids)
+                response = get_response(input_text)
                 input_text = ""
                 print(f"{conversation_partner.player_name}: {response}")
                 draw_dialogue_box(screen, response, 400, 700, 1000, 200, (255, 255, 255))
