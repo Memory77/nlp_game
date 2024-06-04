@@ -27,15 +27,16 @@ def get_response(prompt, conversation_partner, player):
     character = conversation_partner.caracter
     lore = conversation_partner.lore
     partner_score = conversation_partner.score
-    
-    if partner_score <= -500:
-        character = "très méchant car on je t'ai fait du mal, je t'ai fait tomber dans des trous donc tu es remonté contre moi. Si jamais je te donne un camembert, tu acceptes de me faire pardonner."
-    
+
     if 'je te donne un camembert' in prompt and player.camembert_part:
         conversation_partner.score += 250
         player.camembert_part.pop()
     
-    preprompt = f"Tu es entrain de parler avec une personne dans un village. Tu es un personnage avec les traits de caractères suivants:\n {character}\nHistoire: {lore}\n"
+    if partner_score <= -500:
+        character = "très méchant car je t'ai fait du mal, je t'ai fait tomber dans des trous donc tu es remonté contre moi. Si jamais je te donne un camembert, tu acceptes de me faire pardonner."
+    
+    
+    preprompt = f"Tu incarnes un personnage avec les traits de caractères suivants:\n {character}\nHistoire: {lore}\n. Tu dois répondre en tant que ce personnage."
     #full_prompt = preprompt + prompt
 
     response = openai.ChatCompletion.create(
@@ -108,15 +109,15 @@ pygame.init()
 
 pygame.mixer.init() 
 
-music_list = ['moonwalker.wav',
-              #'Fort_Boyard.wav',
-              ]
-random_music = random.choice(music_list)
-music = pygame.mixer.music.load(f"sounds/{random_music}")
-pygame.mixer.music.set_volume(0.3) #1.0 volume max
-if random_music == 'Fort_Boyard.wav':
-    pygame.mixer.music.set_volume(0.6)
-pygame.mixer.music.play(-1)
+# music_list = ['moonwalker.wav',
+#               #'Fort_Boyard.wav',
+#               ]
+# random_music = random.choice(music_list)
+# music = pygame.mixer.music.load(f"sounds/{random_music}")
+# pygame.mixer.music.set_volume(0.3) #1.0 volume max
+# if random_music == 'Fort_Boyard.wav':
+#     pygame.mixer.music.set_volume(0.5)
+# pygame.mixer.music.play(-1)
 
 width, height = 1800, 1000  # Ajustez selon vos besoins
 screen = pygame.display.set_mode((width, height))
