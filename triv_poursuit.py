@@ -33,7 +33,7 @@ def get_response(prompt, conversation_partner, player):
         player.camembert_part.pop()
     
     if partner_score <= -500:
-        character = "très méchant car je t'ai fait du mal, je t'ai fait tomber dans des trous donc tu es remonté contre moi. Si jamais je te donne un camembert, tu acceptes de me faire pardonner."
+        character = "Tu très en colère car je t'ai fait du mal en te faisant tomber dans des trous. Si jamais je te donne un camembert, tu acceptes de faire la paix avec moi."
     
     
     preprompt = f"Tu incarnes un personnage avec les traits de caractères suivants:\n {character}\nHistoire: {lore}\n. Tu dois répondre en tant que ce personnage."
