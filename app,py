@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import openai
 import requests
+from flask import Flask, request, jsonify
 
 # Charger les variables d'environnement à partir du fichier .env
 load_dotenv()
@@ -15,6 +16,8 @@ openai_api_version = os.getenv('openai_api_version')
 # Configurer l'API OpenAI avec les variables chargées
 openai.api_key = openai_api_key
 openai.api_base = openai_api_key_base
+
+app = Flask(__name__)
 
 # Initialiser l'historique de la conversation avec un pré-prompt détaillé
 conversation_history = [
@@ -35,8 +38,11 @@ conversation_history = [
     """}
 ]
 
-# Fonction pour appeler l'API Azure OpenAI avec un pré-prompt
-def azure_openai_request(conversation_history):
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message', '')
+    conversation_history.append({"role": "user", "content": user_message})
+    
     url = f"{openai_api_key_base}/openai/deployments/{openai_api_deployment}/chat/completions?api-version={openai_api_version}"
     headers = {
         "Content-Type": "application/json",
@@ -48,28 +54,11 @@ def azure_openai_request(conversation_history):
     }
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
-        return response.json()
+        model_reply = response.json()['choices'][0]['message']['content'].strip()
+        conversation_history.append({"role": "assistant", "content": model_reply})
+        return jsonify({"response": model_reply})
     else:
-        print(f"Error: {response.status_code}, {response.text}")
-        return None
+        return jsonify({"error": response.status_code, "message": response.text}), response.status_code
 
-# Fonction pour ajouter un message utilisateur à la conversation
-def add_user_message(message):
-    conversation_history.append({"role": "user", "content": message})
-
-# Fonction pour ajouter une réponse du modèle à la conversation
-def add_model_response(response):
-    conversation_history.append({"role": "assistant", "content": response})
-
-# Boucle de conversation interactive
-print("Vous parlez maintenant à Elara, un puissant mage dans un monde de fantasy héroïque. Tapez 'exit' pour terminer la conversation.")
-while True:
-    user_input = input("\nVous: ")
-    if user_input.lower() == 'exit':
-        break
-    add_user_message(user_input)
-    response = azure_openai_request(conversation_history)
-    if response:
-        model_reply = response['choices'][0]['message']['content'].strip()
-        print(f"\nElara: {model_reply}")
-        add_model_response(model_reply)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
