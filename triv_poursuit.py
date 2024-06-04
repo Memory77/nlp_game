@@ -24,9 +24,14 @@ openai.api_type = 'azure'
 openai.api_version = api_version
 
 # Fonction pour appeler l'API et obtenir une réponse en incluant les attributs du joueur
-def get_response(prompt, character, lore):
+def get_response(prompt, character, lore, partner_score, player_camembert):
+    if partner_score <= -500:
+        character = "très méchant car on je t'ai fait du mal, je t'ai fait tomber dans des trous donc tu es remonté contre moi. Si jamais je te donne un camembert, tu acceptes de me faire pardonner."
+    if 'je te donne un camembert' in prompt:
+        partner_score =+ 250
+        player_camembert.pop()
     preprompt = f"You are conversing with a character. The character's traits are as follows:\nCharacter: {character}\nLore: {lore}\n"
-    full_prompt = preprompt + prompt
+    #full_prompt = preprompt + prompt
 
     response = openai.ChatCompletion.create(
         engine=api_deployment,
@@ -99,7 +104,7 @@ pygame.init()
 pygame.mixer.init() 
 
 music_list = ['moonwalker.wav',
-              'Fort_Boyard.wav',
+              #'Fort_Boyard.wav',
               ]
 random_music = random.choice(music_list)
 music = pygame.mixer.music.load(f"sounds/{random_music}")
@@ -271,7 +276,8 @@ while running:
 
         if event.type == pygame.KEYDOWN and conversation_open:
             if event.key == pygame.K_RETURN:
-                response = get_response(input_text, conversation_partner.caracter, conversation_partner.lore)
+                response = get_response(input_text, conversation_partner.caracter, conversation_partner.lore, conversation_partner.score, joueurs[current_player_index].camembert_part)
+                conversation_partner.yell()
                 input_text = ""
                 print(f"{conversation_partner.player_name}: {response}")
                 draw_dialogue_box(screen, response, 400, 700, 1000, 200, (255, 255, 255))

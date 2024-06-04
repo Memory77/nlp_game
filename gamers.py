@@ -110,11 +110,14 @@ class Gamer(pygame.sprite.Sprite):
             self.sound.append('orc.wav')
             
     def yell(self):
-        random_sound = random.choice(self.sound)
-        sound = pygame.mixer.Sound(f"sounds/{random_sound}")
-        sound.play()
-        
-        
+       
+        if self.score <= -500:
+            sound = pygame.mixer.Sound('sounds/angry_3.wav')
+        else:
+            random_sound = random.choice(self.sound)
+            sound = pygame.mixer.Sound(f"sounds/{random_sound}")
+        sound.play()   
+    
        
     def check_camembert(self, camembert_sprites):
         for camembert in camembert_sprites:
@@ -163,8 +166,8 @@ class Gamer(pygame.sprite.Sprite):
             
                     self.set_position(y, x, cell_width, cell_height)
                     self.score += game.hole_points
-                    sound = pygame.mixer.Sound('sounds/fall.wav')
-                    sound.play()
+                    sound_fall = pygame.mixer.Sound('sounds/fall.wav')
+                    sound_fall.play()
                     
                 if gamer.rect.colliderect(fall.rect):
                     #set position aléatoirement 
