@@ -179,8 +179,8 @@ class Gamer(pygame.sprite.Sprite):
             
                     gamer.set_position(y, x, cell_width, cell_height)
                     gamer.score += game.hole_points
-                    sound = pygame.mixer.Sound('sounds/fall.wav')
-                    sound.play()
+                    sound_fall = pygame.mixer.Sound('sounds/fall.wav')
+                    sound_fall.play()
                    
 
 

@@ -23,14 +23,19 @@ openai.api_base = api_base
 openai.api_type = 'azure'
 openai.api_version = api_version
 
-# Fonction pour appeler l'API et obtenir une réponse en incluant les attributs du joueur
-def get_response(prompt, character, lore, partner_score, player_camembert):
+def get_response(prompt, conversation_partner, player):
+    character = conversation_partner.caracter
+    lore = conversation_partner.lore
+    partner_score = conversation_partner.score
+    
     if partner_score <= -500:
         character = "très méchant car on je t'ai fait du mal, je t'ai fait tomber dans des trous donc tu es remonté contre moi. Si jamais je te donne un camembert, tu acceptes de me faire pardonner."
-    if 'je te donne un camembert' in prompt:
-        partner_score =+ 250
-        player_camembert.pop()
-    preprompt = f"You are conversing with a character. The character's traits are as follows:\nCharacter: {character}\nLore: {lore}\n"
+    
+    if 'je te donne un camembert' in prompt and player.camembert_part:
+        conversation_partner.score += 250
+        player.camembert_part.pop()
+    
+    preprompt = f"Tu es entrain de parler avec une personne dans un village. Tu es un personnage avec les traits de caractères suivants:\n {character}\nHistoire: {lore}\n"
     #full_prompt = preprompt + prompt
 
     response = openai.ChatCompletion.create(
@@ -47,7 +52,7 @@ def get_response(prompt, character, lore, partner_score, player_camembert):
     try:
         return response['choices'][0]['message']['content'].strip()
     except KeyError:
-        return response['choices'][0]['text'].strip()  # Essayez cette structure si la première échoue
+        return response['choices'][0]['text'].strip()
 
 
 # quelques fonctions, à mettre sûrement dans un autre fichier plus tard
@@ -276,7 +281,7 @@ while running:
 
         if event.type == pygame.KEYDOWN and conversation_open:
             if event.key == pygame.K_RETURN:
-                response = get_response(input_text, conversation_partner.caracter, conversation_partner.lore, conversation_partner.score, joueurs[current_player_index].camembert_part)
+                response = get_response(input_text, conversation_partner, joueurs[current_player_index])
                 conversation_partner.yell()
                 input_text = ""
                 print(f"{conversation_partner.player_name}: {response}")
