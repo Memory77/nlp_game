@@ -45,7 +45,7 @@ def azure_openai_request(conversation_history):
     }
     data = {
         "messages": conversation_history,
-        "max_tokens": 1
+        "max_tokens": 50
     }
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
@@ -60,11 +60,12 @@ def add_user_message(message):
 
 # Fonction pour ajouter une réponse du modèle à la conversation
 def add_model_response(response):
-    conversation_history.append({"role": "assistant", "content": response})
+    conversation_history.append({"role": "assistant", "content": response})    
 
 # Interface utilisateur Streamlit
 st.title("Elara, le Mage Puissant")
 st.write("Vous parlez maintenant à Elara, un puissant mage dans un monde de fantasy héroïque. Tapez 'exit' pour terminer la conversation.")
+
 
 # Afficher l'historique de la conversation
 st.write("Historique de la conversation:")
