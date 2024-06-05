@@ -1,3 +1,4 @@
 python-dotenv
 openai==0.28.0
-flask
+streamlit 
+requests
