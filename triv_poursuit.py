@@ -23,6 +23,9 @@ openai.api_base = api_base
 openai.api_type = 'azure'
 openai.api_version = api_version
 
+# Liste globale pour stocker les dialogues
+dialogues = []
+
 def get_response(prompt, conversation_partner, player):
     character = conversation_partner.caracter
     lore = conversation_partner.lore
@@ -33,11 +36,9 @@ def get_response(prompt, conversation_partner, player):
         player.camembert_part.pop()
     
     if partner_score <= -500:
-        character = "Tu très en colère car je t'ai fait du mal en te faisant tomber dans des trous. Si jamais je te donne un camembert, tu acceptes de faire la paix avec moi."
-    
+        character = "Tu es très en colère car je t'ai fait du mal en te faisant tomber dans des trous. Si jamais je te donne un camembert, tu acceptes de faire la paix avec moi."
     
     preprompt = f"Tu incarnes un personnage avec les traits de caractères suivants:\n {character}\nHistoire: {lore}\n. Tu dois répondre en tant que ce personnage."
-    #full_prompt = preprompt + prompt
 
     response = openai.ChatCompletion.create(
         engine=api_deployment,
@@ -49,11 +50,13 @@ def get_response(prompt, conversation_partner, player):
     )
     print("Réponse brute de l'API:", response)
     
-    # Extraction du contenu de la réponse en vérifiant les différentes structures possibles
     try:
-        return response['choices'][0]['message']['content'].strip()
+        message = response['choices'][0]['message']['content'].strip()
     except KeyError:
-        return response['choices'][0]['text'].strip()
+        message = response['choices'][0]['text'].strip()
+    
+    dialogues.append((conversation_partner.player_name, message))
+    return message
 
 
 # quelques fonctions, à mettre sûrement dans un autre fichier plus tard
@@ -74,33 +77,47 @@ def draw_button(screen, text, x, y, width, height, active_color, inactive_color,
     screen.blit(text_surf, text_rect)
     return False
 
-def auto_wrap(text: str, nb_characters: int) -> str:
-    # permet de faire les retours à la ligne automatiquement
-    words = text.split(' ')
-    wrapped_lines = []
-    
-    for word in words:
-        if len(wrapped_lines) == 0:
-            wrapped_lines.append('')
-        test_line = wrapped_lines[-1] + word + ' '
-        
-        if len(test_line) < nb_characters:
-            wrapped_lines[-1] = test_line
-        else:
-            wrapped_lines.append(word + ' ')
 
-    return wrapped_lines
+def auto_wrap(text: str, font, max_width: int) -> list:
+    words = text.split(' ')
+    lines = []
+    current_line = ""
+    for word in words:
+        if font.size(current_line + word)[0] < max_width:
+            current_line += word + " "
+        else:
+            lines.append(current_line)
+            current_line = word + " "
+    lines.append(current_line)
+    return lines
 
 def are_players_adjacent(player1, player2):
     return abs(player1.x - player2.x) <= 1 and abs(player1.y - player2.y) <= 1
 
-def draw_dialogue_box(screen, text, x, y, width, height, color):
+def draw_dialogues(screen, dialogues, x, y, width, height, color):
     font = pygame.font.SysFont(None, 25)
     pygame.draw.rect(screen, color, (x, y, width, height))
-    wrapped_lines = auto_wrap(text, 40)
-    for i, line in enumerate(wrapped_lines):
+    dialogue_y = y + 10  # Start position for the dialogue text
+    for speaker, message in dialogues:
+        wrapped_lines = auto_wrap(f"{speaker}: {message}", font, width - 20)
+        for line in wrapped_lines:
+            if dialogue_y + 20 < y + height:
+                text_surf = font.render(line, True, (0, 0, 0))
+                screen.blit(text_surf, (x + 10, dialogue_y))
+                dialogue_y += 20
+            else:
+                break
+
+def draw_input_box(screen, input_text, x, y, width, height, color):
+    font = pygame.font.SysFont(None, 25)
+    pygame.draw.rect(screen, color, (x, y, width, height))
+    wrapped_lines = auto_wrap(input_text, font, width - 20)
+    input_y = y + 10  # Start position for the input text
+    for line in wrapped_lines:
         text_surf = font.render(line, True, (0, 0, 0))
-        screen.blit(text_surf, (x + 10, y + 10 + i * 20))
+        screen.blit(text_surf, (x + 10, input_y))
+        input_y += 20
+    
 
 # AFFICHAGE PYGAME
 
@@ -119,7 +136,13 @@ pygame.mixer.init()
 #     pygame.mixer.music.set_volume(0.5)
 # pygame.mixer.music.play(-1)
 
-width, height = 1800, 1000  # Ajustez selon vos besoins
+# Obtenir la taille de l'écran
+screen_info = pygame.display.Info()
+screen_width = screen_info.current_w
+screen_height = screen_info.current_h
+
+# Ajuster la taille de la fenêtre Pygame en fonction de la taille de l'écran
+width, height = screen_width, screen_height
 screen = pygame.display.set_mode((width, height))
 
 ## === INTERFACE (côté droit, pour tout ce qui est interaction questions etc.)
@@ -282,11 +305,11 @@ while running:
 
         if event.type == pygame.KEYDOWN and conversation_open:
             if event.key == pygame.K_RETURN:
+                dialogues.append((joueurs[current_player_index].player_name, input_text))
                 response = get_response(input_text, conversation_partner, joueurs[current_player_index])
                 conversation_partner.yell()
                 input_text = ""
                 print(f"{conversation_partner.player_name}: {response}")
-                draw_dialogue_box(screen, response, 400, 700, 1000, 200, (255, 255, 255))
 
             elif event.key == pygame.K_BACKSPACE:
                 input_text = input_text[:-1]
@@ -358,10 +381,12 @@ while running:
 
     # afficher la fenêtre de conversation si elle est ouverte
     if conversation_open:
-        draw_dialogue_box(screen, f"Conversation avec {conversation_partner.player_name}", 400, 400, 1000, 200, (255, 255, 255))
-        draw_dialogue_box(screen, input_text, 400, 620, 1000, 50, (200, 200, 200))
+        draw_dialogues(screen, dialogues, 400, 400, 1000, 200, (255, 255, 255))
+        draw_input_box(screen, input_text, 400, 620, 1000, 50, (200, 200, 200))
         if draw_button(screen, "Fermer", 1300, 550, 100, 50, active_color, inactive_color, 30):
             conversation_open = False
+    
+    
     
     # conditions de victoire et retourne le gagnant
     winner = game.victory()
