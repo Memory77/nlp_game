@@ -75,7 +75,31 @@ def get_response(prompt):
         print(f"Une erreur s'est produite lors de l'appel de l'api OpenAi: {e}")
         return "Une erreur s'est produite, veuillez réessayer"
 
+def synthesize_speech(text):
+    try:
+        speech_config = speechsdk.SpeechConfig(subscription=os.getenv('openai_api_speech_key'), region=os.getenv('openai_speech_region'))
+        audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+
+        # Personnaliser la voix si nécessaire
+        voice_name = "fr-FR-HenriNeural"  # Remplacez par le nom de la voix personnalisée
+        speech_config.speech_synthesis_voice_name = voice_name
+
+        synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+        
+        result = synthesizer.speak_text_async(text).get()
+        
+        if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+            print("La synthèse vocale est terminée.")
+        elif result.reason == speechsdk.ResultReason.Canceled:
+            cancellation_details = result.cancellation_details
+            print("La synthèse vocale a été annulée : {}".format(cancellation_details.reason))
+            if cancellation_details.reason == speechsdk.CancellationReason.Error:
+                print("Détails de l'erreur : {}".format(cancellation_details.error_details))
+                print("Avez-vous défini les valeurs de clé de ressource et de région ?")
+    except Exception as e:
+        print(f"Une erreur s'est produite lors de la synthèse vocale : {e}")
+
 if prompt:
     response = get_response(prompt)
-    print(f"Réponse de l'orc : {response}")
-        
+    print(f"Réponse de l'agent : {response}")
+    synthesize_speech(response)
