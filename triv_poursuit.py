@@ -93,7 +93,8 @@ def auto_wrap(text: str, font, max_width: int) -> list:
 
 def are_players_adjacent(player1, player2):
     return abs(player1.x - player2.x) <= 1 and abs(player1.y - player2.y) <= 1
-
+ 
+ 
 def draw_dialogues(screen, dialogues, x, y, width, height, color):
     font = pygame.font.SysFont(None, 25)
     pygame.draw.rect(screen, color, (x, y, width, height))
