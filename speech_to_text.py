@@ -54,7 +54,7 @@ openai.api_version = api_version
 
 def get_response(prompt):
     try:
-        preprompt = "Tu incarnes un orc avec les traits de caractères suivants:\n Caractère: colèrique, agacé, impoli\nHistoire: Tu es un orc d'azeroth et tu fais partie de la horde.\n. Tu dois répondre en tant que ce personnage."
+        preprompt = "Tu incarnes un orque avec les traits de caractères suivants:\n Caractère: colèrique, agacé, impoli\nHistoire: Tu es un orque d'azeroth et tu fais partie de la horde.\n. Tu dois répondre en tant que ce personnage."
 
         response = openai.ChatCompletion.create(
             engine=api_deployment,
