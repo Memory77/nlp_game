@@ -44,7 +44,7 @@ def azure_openai_request(conversation_history):
     }
     data = {
         "messages": conversation_history,
-        "max_tokens": 500
+        "max_tokens": 1
     }
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
