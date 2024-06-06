@@ -7,6 +7,7 @@ import sql_game
 import os
 import openai
 from dotenv import load_dotenv
+import azure.cognitiveservices.speech as speechsdk
 
 # Charger les variables d'environnement à partir du fichier .env
 load_dotenv()
@@ -16,6 +17,8 @@ api_key = os.getenv('openai_api_key')
 api_base = os.getenv('openai_api_key_base')
 api_deployment = os.getenv('openai_api_deployment')
 api_version = os.getenv('openai_api_version')
+speech_key = os.getenv('openai_api_speech_key')
+speech_region = os.getenv('openai_speech_region')
 
 # Configurer l'API OpenAI avec les informations d'Azure
 openai.api_key = api_key
@@ -25,6 +28,32 @@ openai.api_version = api_version
 
 # Liste globale pour stocker les dialogues
 dialogues = []
+
+def recognize_from_microphone():
+    try:
+        speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=speech_region)
+        speech_config.speech_recognition_language = "fr-FR"
+        
+        audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+        speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+
+        print("Parlez dans votre micro")
+        speech_recognition_result = speech_recognizer.recognize_once_async().get()
+        
+        if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+            return speech_recognition_result.text
+        elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+            print("Aucune parole n'a été reconnue.")
+        elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+            cancellation_details = speech_recognition_result.cancellation_details
+            print("Reconnaissance vocale annulée : {}".format(cancellation_details.reason))
+            if cancellation_details.reason == speechsdk.CancellationReason.Error:
+                print("Détails de l'erreur : {}".format(cancellation_details.error_details))
+                print("Avez-vous défini les valeurs de clé de ressource et de région ?")
+        return None
+    except Exception as e:
+        print(f"Une erreur s'est produite lors de la reconnaissance vocale : {e}")
+        return None
 
 def get_response(prompt, conversation_partner, player):
     character = conversation_partner.caracter
@@ -38,9 +67,7 @@ def get_response(prompt, conversation_partner, player):
     if partner_score <= -500:
         character = "Tu très en colère car je t'ai fait du mal en te faisant tomber dans des trous. Si jamais je te donne un camembert, tu acceptes de faire la paix avec moi."
     
-    
     preprompt = f"Tu incarnes un personnage avec les traits de caractères suivants:\n {character}\nHistoire: {lore}\n. Tu dois répondre en tant que ce personnage."
-    #full_prompt = preprompt + prompt
 
     response = openai.ChatCompletion.create(
         engine=api_deployment,
@@ -58,6 +85,29 @@ def get_response(prompt, conversation_partner, player):
     except KeyError:
         return response['choices'][0]['text'].strip()
 
+def synthesize_speech(text):
+    try:
+        speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=speech_region)
+        audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+
+        # Personnaliser la voix si nécessaire
+        voice_name = "fr-FR-HenriNeural"  # Remplacez par le nom de la voix personnalisée
+        speech_config.speech_synthesis_voice_name = voice_name
+
+        synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+        
+        result = synthesizer.speak_text_async(text).get()
+        
+        if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+            print("La synthèse vocale est terminée.")
+        elif result.reason == speechsdk.ResultReason.Canceled:
+            cancellation_details = result.cancellation_details
+            print("La synthèse vocale a été annulée : {}".format(cancellation_details.reason))
+            if cancellation_details.reason == speechsdk.CancellationReason.Error:
+                print("Détails de l'erreur : {}".format(cancellation_details.error_details))
+                print("Avez-vous défini les valeurs de clé de ressource et de région ?")
+    except Exception as e:
+        print(f"Une erreur s'est produite lors de la synthèse vocale : {e}")
 
 # quelques fonctions, à mettre sûrement dans un autre fichier plus tard
 def draw_button(screen, text, x, y, width, height, active_color, inactive_color, font_size):
@@ -124,16 +174,6 @@ def draw_input_box(screen, input_text, x, y, width, height, color):
 pygame.init()
 
 pygame.mixer.init() 
-
-# music_list = ['moonwalker.wav',
-#               #'Fort_Boyard.wav',
-#               ]
-# random_music = random.choice(music_list)
-# music = pygame.mixer.music.load(f"sounds/{random_music}")
-# pygame.mixer.music.set_volume(0.3) #1.0 volume max
-# if random_music == 'Fort_Boyard.wav':
-#     pygame.mixer.music.set_volume(0.5)
-# pygame.mixer.music.play(-1)
 
 width, height = 1800, 1000  # Ajustez selon vos besoins
 screen = pygame.display.set_mode((width, height))
@@ -300,18 +340,6 @@ while running:
                 joueurs[current_player_index].yell()
                 print(f"Passage au joueur {current_player_index + 1}")
 
-        if event.type == pygame.KEYDOWN and conversation_open:
-            if event.key == pygame.K_RETURN:
-                dialogues.append((joueurs[current_player_index].player_name, input_text))
-                response = get_response(input_text, conversation_partner, joueurs[current_player_index])
-                dialogues.append((conversation_partner.player_name, response))  # Ajout de la réponse du PNJ aux dialogues
-                conversation_partner.yell()
-                input_text = ""
-                print(f"{conversation_partner.player_name}: {response}")
-            elif event.key == pygame.K_BACKSPACE:
-                input_text = input_text[:-1]
-            else:
-                input_text += event.unicode
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 4:  # Molette vers le haut
                 scroll_offset = max(scroll_offset - scroll_speed, 0)
@@ -380,6 +408,12 @@ while running:
                     if draw_button(screen, "Dialoguer", 50, 850, 200, 50, active_color, inactive_color, 30):
                         conversation_open = True
                         conversation_partner = gamer2 if current_player_index == i else gamer1
+                        prompt = recognize_from_microphone()  # Reconnaissance vocale
+                        if prompt:
+                            dialogues.append((joueurs[current_player_index].player_name, prompt))
+                            response = get_response(prompt, conversation_partner, joueurs[current_player_index])
+                            dialogues.append((conversation_partner.player_name, response))  # Ajout de la réponse du PNJ aux dialogues
+                            synthesize_speech(response)  # Synthèse vocale de la réponse
 
     # afficher la fenêtre de conversation si elle est ouverte
     if conversation_open:
