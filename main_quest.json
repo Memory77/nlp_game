@@ -1,0 +1,45 @@
+{
+    "title": "La Terreur de Ravenwood",
+    "description": "Une mystérieuse créature terrorise les habitants de Ravenwood. Le joueur doit enquêter pour découvrir de quel type de monstre il s'agit et se préparer en conséquence pour le vaincre. Le joueur devra parler aux habitants, qui ont des personnalités différentes, pour obtenir des indices. Certains habitants seront coopératifs, tandis que d'autres seront réticents ou ivres. En trouvant des indices et en interrogeant les villageois, le joueur pourra se préparer à affronter la créature et sauver Ravenwood.",
+    "objectives": [
+        "Se rendre à Ravenwood et parler au chef du village pour obtenir des informations sur les attaques.",
+        "Interroger les habitants de Ravenwood pour recueillir des témoignages et des indices sur la créature.",
+        "Explorer les environs du village pour trouver des traces de la créature.",
+        "Collecter les ressources nécessaires pour se préparer à affronter la créature (armes, potions, etc.).",
+        "Confronter et vaincre la créature afin de libérer Ravenwood de la terreur."
+    ],
+    "characters": [
+        {
+            "name": "Eldric, le chef du village",
+            "personality": "Sage et préoccupé",
+            "role": "Fournir des informations initiales sur les attaques."
+        },
+        {
+            "name": "Mira, la guérisseuse",
+            "personality": "Gentille et serviable",
+            "role": "Donner des potions et des conseils sur la créature."
+        },
+        {
+            "name": "Borik, le forgeron",
+            "personality": "Rude mais juste",
+            "role": "Fournir des armes et des équipements."
+        },
+        {
+            "name": "Gareth, le fermier ivre",
+            "personality": "Ivre et peu coopératif",
+            "role": "Fournir des informations confuses mais potentiellement utiles."
+        },
+        {
+            "name": "Lena, la jeune villageoise",
+            "personality": "Effrayée et timide",
+            "role": "Donner des témoignages sur les apparitions de la créature."
+        }
+    ],
+    "hints": [
+        "La créature semble attaquer principalement la nuit.",
+        "Des empreintes de grandes griffes ont été trouvées près des bois.",
+        "Certains villageois parlent d'un rugissement terrifiant venant des collines.",
+        "Des animaux domestiques ont disparu ces derniers jours."
+    ],
+    "reward": "Reconnaissance des habitants de Ravenwood, des objets rares et de l'expérience pour le joueur."
+}
