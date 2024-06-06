@@ -21,20 +21,16 @@ openai.api_key = openai_api_key
 with open('preprompt.json', 'r', encoding='utf-8') as file:
     preprompt = json.load(file)
 
-# Lire la quete principaleà partir du fichier JSON
+# Lire la quete principale à partir du fichier JSON
 with open('main_quest.json', 'r', encoding='utf-8') as file:
     mainquest = json.load(file)
 
-
-
-
-
 # Initialiser l'historique de la conversation avec un pré-prompt détaillé
 if 'conversation_history' not in st.session_state:
-    st.session_state.conversation_history = [preprompt]
-
-# Ajouter la quête principale à l'historique de la conversation
-st.session_state.conversation_history.append({"role": "system", "content": json.dumps(mainquest)})
+    st.session_state.conversation_history = [
+        {"role": "system", "content": preprompt["content"]},
+        {"role": "system", "content": json.dumps(mainquest)}
+    ]
 
 # Fonction pour appeler l'API Azure OpenAI avec un pré-prompt
 def azure_openai_request(conversation_history):
@@ -61,7 +57,6 @@ def add_user_message(message):
 # Fonction pour ajouter une réponse du modèle à la conversation
 def add_model_response(response):
     st.session_state.conversation_history.append({"role": "assistant", "content": response})
-
 
 # Interface utilisateur Streamlit
 st.title("Elara, le Mage Puissant")
