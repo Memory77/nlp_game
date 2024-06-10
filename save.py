@@ -45,7 +45,7 @@ def azure_openai_request(conversation_history):
     }
     data = {
         "messages": conversation_history,
-        "max_tokens": 100,  # Limiter les tokens pour des réponses courtes
+        "max_tokens": 50,  # Limiter les tokens pour des réponses courtes
         "stop": ["\n"]
     }
     response = requests.post(url, headers=headers, json=data)
@@ -63,7 +63,7 @@ def add_user_message(message):
 def add_model_response(response):
     st.session_state.conversation_history.append({"role": "assistant", "content": response})
 
-# Fonction pour sélectionner l'image en fonction de l'entrée utilisateur ou de la réponse du modèle
+# Fonction pour sélectionner l'image en fonction de l'entrée utilisateur ou du bouton cliqué
 def update_image(location):
     location = location.lower()
     if "carte du monde" in location:
@@ -84,6 +84,7 @@ def update_image(location):
         st.session_state.current_image = "visuels/Bourg de Drakenshire/0f0ded15-dc4d-4008-91dd-a73988602a1c.webp"
     elif "cavernes de nymor" in location:
         st.session_state.current_image = "visuels/Cavernes de Nymor/878a9aa7-755b-4b75-bbd1-f47cac39e002.webp"
+    return
 
 # Interface utilisateur Streamlit
 st.title("Elara, le Mage Puissant")
@@ -102,9 +103,10 @@ for location in locations:
         st.experimental_rerun()
 
 # Afficher l'image actuelle
-col1, col2, col3 = st.columns([1, 6, 1])
+col1, col2, col3 = st.columns([1, 5, 1])
 with col2:
     st.image(st.session_state.current_image, use_column_width=True)
+
 # Afficher l'historique de la conversation (en filtrant les messages de rôle 'system')
 for message in st.session_state.conversation_history:
     if message['role'] != 'system':
@@ -123,5 +125,4 @@ if submit_button and user_input:
     if response:
         model_reply = response['choices'][0]['message']['content'].strip()
         add_model_response(model_reply)
-        update_image(model_reply)  # Mettre à jour l'image en fonction de la réponse du modèle
     st.rerun()
