@@ -1,12 +1,12 @@
 {
     "title": "La Terreur de Ravenwood",
-    "description": "Une mystérieuse créature terrorise les habitants de Ravenwood. Le joueur doit enquêter pour découvrir de quel type de monstre il s'agit et se préparer en conséquence pour le vaincre. Le joueur devra parler aux habitants, qui ont des personnalités différentes, pour obtenir des indices. Certains habitants seront coopératifs, tandis que d'autres seront réticents ou ivres. En trouvant des indices et en interrogeant les villageois, le joueur pourra se préparer à affronter la créature et sauver Ravenwood.",
+    "description": "Une mystérieuse créature terrorise les habitants du village de Ravenwood. Le joueur doit enquêter pour découvrir de quel type de monstre il s'agit et se préparer en conséquence pour le vaincre. Le joueur devra parler aux habitants, qui ont des personnalités différentes, pour obtenir des indices. Certains habitants seront coopératifs, tandis que d'autres seront réticents ou ivres. En trouvant des indices et en interrogeant les villageois, le joueur pourra se préparer à affronter la créature et sauver le village de Ravenwood.",
     "objectives": [
-        "Se rendre à Ravenwood et parler au chef du village pour obtenir des informations sur les attaques.",
-        "Interroger les habitants de Ravenwood pour recueillir des témoignages et des indices sur la créature.",
+        "Se rendre au village de Ravenwood et parler au chef du village pour obtenir des informations sur les attaques.",
+        "Interroger les habitants du village de Ravenwood pour recueillir des témoignages et des indices sur la créature.",
         "Explorer les environs du village pour trouver des traces de la créature.",
         "Collecter les ressources nécessaires pour se préparer à affronter la créature (armes, potions, etc.).",
-        "Confronter et vaincre la créature afin de libérer Ravenwood de la terreur."
+        "Confronter et vaincre la créature afin de libérer le village de Ravenwood de la terreur."
     ],
     "characters": [
         {

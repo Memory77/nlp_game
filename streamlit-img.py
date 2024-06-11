@@ -25,6 +25,22 @@ with open('preprompt.json', 'r', encoding='utf-8') as file:
 with open('main_quest.json', 'r', encoding='utf-8') as file:
     mainquest = json.load(file)
 
+# Lire les lieux à partir du fichier JSON
+with open('lieux.json', 'r', encoding='utf-8') as file:
+    lieux = json.load(file)
+
+# Convertir les lieux en une chaîne de texte à inclure dans le pré-prompt
+lieux_text = "\n\nVoici les lieux que tu connais :\n"
+for lieu in lieux["lieux"]:
+    lieux_text += f"\n{lieu['nom']} :\n - Description : {lieu['description']}\n - Position : {lieu['position']}\n - Distance : {lieu['distance']}"
+    if "scenes_de_vie" in lieu:
+        lieux_text += f"\n - Scènes de vie : {lieu['scenes_de_vie']}"
+    if "quetes" in lieu:
+        lieux_text += f"\n - Quêtes : {lieu['quetes']}"
+
+# Ajouter les lieux au pré-prompt initial
+preprompt["content"] += lieux_text
+
 # Initialiser l'historique de la conversation avec un pré-prompt détaillé
 if 'conversation_history' not in st.session_state:
     st.session_state.conversation_history = [
@@ -84,6 +100,8 @@ def update_image(location):
         st.session_state.current_image = "visuels/Bourg de Drakenshire/0f0ded15-dc4d-4008-91dd-a73988602a1c.webp"
     elif "cavernes de nymor" in location:
         st.session_state.current_image = "visuels/Cavernes de Nymor/878a9aa7-755b-4b75-bbd1-f47cac39e002.webp"
+    elif "ver géant du désert" in location:
+        st.session_state.current_image = "visuels/Bestiaire/a49b6b9a-1dbe-447f-b5b3-51e808a17160.webp"
 
 # Interface utilisateur Streamlit
 st.title("Elara, le Mage Puissant")

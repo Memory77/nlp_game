@@ -1,0 +1,59 @@
+{
+    "lieux": [
+      {
+        "nom": "Montagnes de Tharok",
+        "description": "Des sommets enneigés et des falaises escarpées caractérisent cette chaîne de montagnes majestueuse. Les Montagnes de Tharok sont riches en minerais précieux mais dangereuses à cause des créatures qui y habitent.",
+        "position": "Au nord-ouest du royaume.",
+        "distance": "À environ trois jours de marche de la Forêt d'Eldoria."
+      },
+      {
+        "nom": "Forêt d'Eldoria",
+        "description": "Une forêt enchantée où les arbres sont gigantesques et les clairières abritent des esprits anciens. Les voyageurs doivent se méfier des illusions et des créatures magiques qui protègent les secrets de la forêt.",
+        "position": "Au nord du royaume, en bordure des Montagnes de Tharok.",
+        "distance": "À deux jours de marche du Village de Ravenwood."
+      },
+      {
+        "nom": "Village de Ravenwood",
+        "description": "Un petit village pittoresque entouré de champs fertiles. Les habitants sont accueillants et connaissent bien les légendes locales. Ravenwood est un lieu de repos idéal pour les aventuriers.",
+        "position": "Au nord-est, près de la Forêt d'Eldoria.",
+        "distance": "À une journée de marche de la Forêt d'Eldoria et trois jours de la Cité de Lumina.",
+        "scenes_de_vie": "Bals, fêtes de la récolte, marchés hebdomadaires."
+      },
+      {
+        "nom": "Cité de Lumina",
+        "description": "Une ville prospère, célèbre pour son immense bibliothèque et son université de magie. Lumina est le centre culturel et intellectuel du royaume, avec des marchés animés et des bâtiments majestueux.",
+        "position": "À l'est du royaume.",
+        "distance": "À trois jours de marche du Village de Ravenwood et quatre jours de la Forteresse de Kael'thor.",
+        "scenes_de_vie": "Festivals de magie, bals masqués, conférences académiques."
+      },
+      {
+        "nom": "Forteresse de Kael'thor",
+        "description": "Une imposante forteresse en pierre noire, perchée sur une colline surplombant le désert de Vereth. Elle est le bastion de l'armée royale et abrite de nombreux soldats et chevaliers.",
+        "position": "Au sud-est du royaume, à la frontière du désert de Vereth.",
+        "distance": "À quatre jours de marche de la Cité de Lumina.",
+        "scenes_de_vie": "Tournois de chevaliers, cérémonies de promotion militaire."
+      },
+      {
+        "nom": "Désert de Vereth",
+        "description": "Un vaste désert aride avec des dunes de sable à perte de vue. Le désert est parsemé de ruines anciennes et de mystérieuses oasis, mais aussi de nombreux dangers naturels.",
+        "position": "Au sud du royaume.",
+        "distance": "À cinq jours de marche de la Forteresse de Kael'thor, il y a un ver géant connu sous le nom de 'Ver géant du Désert' qui vit sous le sable et est très agressif.",
+        "scenes_de_vie": "Marchés nomades, rituels tribaux."
+      },
+      {
+        "nom": "Bourg de Drakenshire",
+        "description": "Un bourg fortifié avec une riche histoire et des bâtiments en pierre. Drakenshire est connu pour ses marchés et son château central, résidence du duc local.",
+        "position": "Au sud-ouest, entre la Forêt d'Eldoria et les Montagnes de Tharok.",
+        "distance": "À deux jours de marche des Montagnes de Tharok et trois jours du Village de Ravenwood.",
+        "scenes_de_vie": "Foires, fêtes de la fondation, banquets au château."
+      },
+      {
+        "nom": "Cavernes de Nymor",
+        "description": "Un réseau complexe de cavernes souterraines regorgeant de trésors et de créatures dangereuses. Les cavernes sont un lieu de prédilection pour les aventuriers en quête de gloire et de richesses.",
+        "position": "Sous les Montagnes de Tharok.",
+        "distance": "L'entrée principale se trouve à une demi-journée de marche des Montagnes de Tharok.",
+        "quetes": "Explorer les cavernes, combattre des créatures souterraines, trouver des trésors cachés."
+      }
+    ]
+  }
+  
