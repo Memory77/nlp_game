@@ -39,7 +39,7 @@ for lieu in lieux["lieux"]:
         lieux_text += f"\n - Quêtes : {lieu['quetes']}"
 
 # Ajouter les lieux au pré-prompt initial
-preprompt["content"] += lieux_text
+# preprompt["content"] += lieux_text
 
 # Initialiser l'historique de la conversation avec un pré-prompt détaillé
 if 'conversation_history' not in st.session_state:
@@ -61,7 +61,7 @@ def azure_openai_request(conversation_history):
     }
     data = {
         "messages": conversation_history,
-        "max_tokens": 100,  # Limiter les tokens pour des réponses courtes
+        "max_tokens": 500,  # Limiter les tokens pour des réponses courtes
         "stop": ["\n"]
     }
     response = requests.post(url, headers=headers, json=data)
