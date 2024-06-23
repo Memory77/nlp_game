@@ -102,6 +102,12 @@ def update_image(location):
         st.session_state.current_image = "visuels/Cavernes de Nymor/878a9aa7-755b-4b75-bbd1-f47cac39e002.webp"
     elif "je vois le ver géant du désert" in location:
         st.session_state.current_image = "visuels/Bestiaire/a49b6b9a-1dbe-447f-b5b3-51e808a17160.webp"
+    elif "allons à la taverne" in location:
+        st.session_state.current_image = "visuels/Scenes de vie/ef0999ac-e25b-4c56-aac9-d64fc32e7a05.webp"
+    elif "allons à la fête du village" in location:
+        st.session_state.current_image = "visuels/Scenes de vie/4e82f811-b7d6-49d7-9e14-f7ae404f41f1.webp"
+    elif "je vois les loups de la forêt" in location:
+        st.session_state.current_image = "visuels/Bestiaire/cc86d179-59a4-4d7e-9770-547f56bd9205.webp"
     elif "bonjour eldric" in location:
         st.session_state.current_image = "visuels/pnj/eldric.webp"
     elif "bonjour borik" in location:
