@@ -84,6 +84,38 @@ def update_image(location):
     location = location.lower()
     if "carte du monde" in location:
         st.session_state.current_image = 'visuels/7e4878aa-323e-442b-af46-ab64fcefd83d.webp'
+    elif "allons aux montagnes de tharok" in location:
+        st.session_state.current_image = "visuels/Montagnes de Tharok/eaeb6dc8-45bd-4792-b829-17f5b1b321a5.webp"
+    elif "allons à la forêt d'eldoria" in location:
+        st.session_state.current_image = "visuels/Forêt d'Eldoria/5653eb0e-0354-4142-8c4a-8ebbd506c3ea.webp"
+    elif "allons au village de ravenwood" in location:
+        st.session_state.current_image = "visuels/Village de Ravenwood/50e99546-587a-42b6-bb66-554a88bf66d5.webp"
+    elif "allons à la cité de lumina" in location:
+        st.session_state.current_image = "visuels/Cité de Lumina/831b6611-74e9-47c5-9536-4fde6db436dc.webp"
+    elif "allons à la forteresse de kael'thor" in location:
+        st.session_state.current_image = "visuels/Forteresse de Kael'thor/ae826e83-f836-4e13-b602-98207581d251.webp"
+    elif "allons au désert de vereth" in location:
+        st.session_state.current_image = "visuels/Désert de Vereth/2703cce7-cad3-4102-b5f6-8dfb869f6d03.webp"
+    elif "allons au bourg de drakenshire" in location:
+        st.session_state.current_image = "visuels/Bourg de Drakenshire/0f0ded15-dc4d-4008-91dd-a73988602a1c.webp"
+    elif "entrons dans les cavernes de nymor" in location:
+        st.session_state.current_image = "visuels/Cavernes de Nymor/878a9aa7-755b-4b75-bbd1-f47cac39e002.webp"
+    elif "je vois le ver géant du désert" in location:
+        st.session_state.current_image = "visuels/Bestiaire/a49b6b9a-1dbe-447f-b5b3-51e808a17160.webp"
+    elif "bonjour eldric" in location:
+        st.session_state.current_image = "visuels/pnj/eldric.webp"
+    elif "bonjour borik" in location:
+        st.session_state.current_image = "visuels/pnj/borik.webp"
+    elif "bonjour gareth" in location:
+        st.session_state.current_image = "visuels/pnj/gareth.webp"
+    elif "bonjour mira" in location:
+        st.session_state.current_image = "visuels/pnj/mira2.webp"
+    elif "bonjour lena" in location:
+        st.session_state.current_image = "visuels/pnj/lena1.webp"
+def update_image_sidebar(location):
+    location = location.lower()
+    if "carte du monde" in location:
+        st.session_state.current_image = 'visuels/7e4878aa-323e-442b-af46-ab64fcefd83d.webp'
     elif "montagnes de tharok" in location:
         st.session_state.current_image = "visuels/Montagnes de Tharok/eaeb6dc8-45bd-4792-b829-17f5b1b321a5.webp"
     elif "forêt d'eldoria" in location:
@@ -100,8 +132,7 @@ def update_image(location):
         st.session_state.current_image = "visuels/Bourg de Drakenshire/0f0ded15-dc4d-4008-91dd-a73988602a1c.webp"
     elif "cavernes de nymor" in location:
         st.session_state.current_image = "visuels/Cavernes de Nymor/878a9aa7-755b-4b75-bbd1-f47cac39e002.webp"
-    elif "ver géant du désert" in location:
-        st.session_state.current_image = "visuels/Bestiaire/a49b6b9a-1dbe-447f-b5b3-51e808a17160.webp"
+
 
 # Interface utilisateur Streamlit
 st.title("Elara, le Mage Puissant")
@@ -116,7 +147,7 @@ locations = [
 ]
 for location in locations:
     if st.sidebar.button(location):
-        update_image(location)
+        update_image_sidebar(location)
         st.experimental_rerun()
 
 # Afficher l'image actuelle
