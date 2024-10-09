@@ -1,0 +1,98 @@
+{
+    "client_id": "12345",
+    "nom": "Jean Dupont",
+    "email": "jean.dupont@example.com",
+    "telephone": "+33 6 12 34 56 78",
+    "adresse": {
+        "rue": "12 Rue de la République",
+        "ville": "Paris",
+        "code_postal": "75001",
+        "pays": "France"
+    },
+    "commandes": [
+        {
+            "commande_id": "ORD-001",
+            "date": "2023-06-15",
+            "produits": [
+                {
+                    "produit_id": "P001",
+                    "nom": "Ordinateur Portable",
+                    "quantite": 1,
+                    "prix_unitaire": 1200.00,
+                    "prix_total": 1200.00
+                },
+                {
+                    "produit_id": "P002",
+                    "nom": "Souris sans fil",
+                    "quantite": 1,
+                    "prix_unitaire": 25.00,
+                    "prix_total": 25.00
+                }
+            ],
+            "statut": "Livrée",
+            "mode_de_paiement": "Carte de crédit",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "12 Rue de la République",
+                    "ville": "Paris",
+                    "code_postal": "75001",
+                    "pays": "France"
+                },
+                "date_livraison": "2023-06-18",
+                "transporteur": "Chronopost"
+            }
+        },
+        {
+            "commande_id": "ORD-002",
+            "date": "2024-01-10",
+            "produits": [
+                {
+                    "produit_id": "P003",
+                    "nom": "Smartphone",
+                    "quantite": 1,
+                    "prix_unitaire": 900.00,
+                    "prix_total": 900.00
+                },
+                {
+                    "produit_id": "P004",
+                    "nom": "Coque de protection",
+                    "quantite": 1,
+                    "prix_unitaire": 20.00,
+                    "prix_total": 20.00
+                }
+            ],
+            "statut": "En cours",
+            "mode_de_paiement": "PayPal",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "12 Rue de la République",
+                    "ville": "Paris",
+                    "code_postal": "75001",
+                    "pays": "France"
+                },
+                "date_estimee_livraison": "2024-01-15",
+                "transporteur": "DHL"
+            }
+        }
+    ],
+    "historique_interactions": [
+        {
+            "date": "2023-06-20",
+            "canal": "Email",
+            "sujet": "Demande de facture",
+            "details": "Le client a demandé une copie de la facture pour la commande ORD-001."
+        },
+        {
+            "date": "2024-01-12",
+            "canal": "Téléphone",
+            "sujet": "Question sur la livraison",
+            "details": "Le client a appelé pour vérifier l'état de livraison de la commande ORD-002."
+        }
+    ],
+    "abonnement_newsletter": true,
+    "programme_fidelite": {
+        "points_acquis": 150,
+        "niveau": "Or",
+        "reduction_prochaine_commande": 10.00
+    }
+}

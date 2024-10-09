@@ -1,0 +1,300 @@
+{
+    "client_id": "C789654",
+    "nom": "Marie Leblanc",
+    "email": "marie.leblanc@exemple.com",
+    "telephone": "+33 6 89 56 23 47",
+    "adresse": {
+        "rue": "45 Avenue des Tilleuls",
+        "ville": "Lyon",
+        "code_postal": "69003",
+        "pays": "France"
+    },
+    "commandes": [
+        {
+            "commande_id": "CMD-001",
+            "date": "2022-03-15",
+            "produits": [
+                {
+                    "produit_id": "P001",
+                    "nom": "Porte en bois massif",
+                    "quantite": 1,
+                    "dimensions": "210x90 cm",
+                    "prix_unitaire": 1200.00,
+                    "prix_total": 1200.00
+                }
+            ],
+            "statut": "Livrée",
+            "mode_de_paiement": "Virement bancaire",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_livraison": "2022-03-20",
+                "transporteur": "Geodis"
+            }
+        },
+        {
+            "commande_id": "CMD-002",
+            "date": "2022-05-25",
+            "produits": [
+                {
+                    "produit_id": "P002",
+                    "nom": "Fenêtre PVC double vitrage",
+                    "quantite": 3,
+                    "dimensions": "120x100 cm",
+                    "prix_unitaire": 350.00,
+                    "prix_total": 1050.00
+                }
+            ],
+            "statut": "Livrée",
+            "mode_de_paiement": "Carte de crédit",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_livraison": "2022-06-01",
+                "transporteur": "Chronopost"
+            }
+        },
+        {
+            "commande_id": "CMD-003",
+            "date": "2022-09-10",
+            "produits": [
+                {
+                    "produit_id": "P003",
+                    "nom": "Baie vitrée coulissante",
+                    "quantite": 1,
+                    "dimensions": "240x210 cm",
+                    "prix_unitaire": 1800.00,
+                    "prix_total": 1800.00
+                }
+            ],
+            "statut": "Livrée",
+            "mode_de_paiement": "Chèque",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_livraison": "2022-09-17",
+                "transporteur": "DHL"
+            }
+        },
+        {
+            "commande_id": "CMD-004",
+            "date": "2023-01-15",
+            "produits": [
+                {
+                    "produit_id": "P004",
+                    "nom": "Volet roulant aluminium",
+                    "quantite": 4,
+                    "dimensions": "120x100 cm",
+                    "prix_unitaire": 500.00,
+                    "prix_total": 2000.00
+                }
+            ],
+            "statut": "Livrée",
+            "mode_de_paiement": "Virement bancaire",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_livraison": "2023-01-20",
+                "transporteur": "TNT"
+            }
+        },
+        {
+            "commande_id": "CMD-005",
+            "date": "2023-04-10",
+            "produits": [
+                {
+                    "produit_id": "P005",
+                    "nom": "Porte de garage motorisée",
+                    "quantite": 1,
+                    "dimensions": "300x200 cm",
+                    "prix_unitaire": 2500.00,
+                    "prix_total": 2500.00
+                }
+            ],
+            "statut": "Livrée",
+            "mode_de_paiement": "Carte de crédit",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_livraison": "2023-04-18",
+                "transporteur": "UPS"
+            }
+        },
+        {
+            "commande_id": "CMD-006",
+            "date": "2023-06-05",
+            "produits": [
+                {
+                    "produit_id": "P006",
+                    "nom": "Fenêtre en aluminium triple vitrage",
+                    "quantite": 5,
+                    "dimensions": "140x120 cm",
+                    "prix_unitaire": 600.00,
+                    "prix_total": 3000.00
+                }
+            ],
+            "statut": "En cours",
+            "mode_de_paiement": "PayPal",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_estimee_livraison": "2023-06-12",
+                "transporteur": "Chronopost"
+            }
+        },
+        {
+            "commande_id": "CMD-007",
+            "date": "2023-07-20",
+            "produits": [
+                {
+                    "produit_id": "P007",
+                    "nom": "Porte-fenêtre bois",
+                    "quantite": 2,
+                    "dimensions": "200x100 cm",
+                    "prix_unitaire": 800.00,
+                    "prix_total": 1600.00
+                }
+            ],
+            "statut": "Livrée",
+            "mode_de_paiement": "Carte de crédit",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_livraison": "2023-07-25",
+                "transporteur": "Geodis"
+            }
+        },
+        {
+            "commande_id": "CMD-008",
+            "date": "2023-09-12",
+            "produits": [
+                {
+                    "produit_id": "P008",
+                    "nom": "Verrière d'intérieur",
+                    "quantite": 1,
+                    "dimensions": "200x150 cm",
+                    "prix_unitaire": 1500.00,
+                    "prix_total": 1500.00
+                }
+            ],
+            "statut": "En cours",
+            "mode_de_paiement": "Virement bancaire",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_estimee_livraison": "2023-09-20",
+                "transporteur": "TNT"
+            }
+        },
+        {
+            "commande_id": "CMD-009",
+            "date": "2023-10-05",
+            "produits": [
+                {
+                    "produit_id": "P009",
+                    "nom": "Porte d'entrée blindée",
+                    "quantite": 1,
+                    "dimensions": "210x90 cm",
+                    "prix_unitaire": 2200.00,
+                    "prix_total": 2200.00
+                }
+            ],
+            "statut": "En cours",
+            "mode_de_paiement": "Chèque",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_estimee_livraison": "2023-10-12",
+                "transporteur": "Geodis"
+            }
+        },
+        {
+            "commande_id": "CMD-010",
+            "date": "2023-11-15",
+            "produits": [
+                {
+                    "produit_id": "P010",
+                    "nom": "Fenêtre coulissante en PVC",
+                    "quantite": 4,
+                    "dimensions": "160x120 cm",
+                    "prix_unitaire": 450.00,
+                    "prix_total": 1800.00
+                }
+            ],
+            "statut": "En attente",
+            "mode_de_paiement": "Carte de crédit",
+            "livraison": {
+                "adresse_livraison": {
+                    "rue": "45 Avenue des Tilleuls",
+                    "ville": "Lyon",
+                    "code_postal": "69003",
+                    "pays": "France"
+                },
+                "date_estimee_livraison": "2023-11-22",
+                "transporteur": "Chronopost"
+            }
+        }
+    ],
+    "historique_interactions": [
+        {
+            "date": "2022-03-18",
+            "canal": "Email",
+            "sujet": "Suivi de livraison",
+            "details": "Le client a demandé le statut de livraison pour la commande CMD-001."
+        },
+        {
+            "date": "2023-06-11",
+            "canal": "Téléphone",
+            "sujet": "Question sur la commande",
+            "details": "Le client a demandé des informations sur les volets roulants de la commande CMD-004."
+        },
+        {
+            "date": "2023-09-10",
+            "canal": "Email",
+            "sujet": "Problème avec la baie vitrée",
+            "details": "Le client a signalé un problème de fermeture avec la baie vitrée de la commande CMD-003."
+        }
+    ],
+    "abonnement_newsletter": true,
+    "programme_fidelite": {
+        "points_acquis": 320,
+        "niveau": "Platine",
+        "reduction_prochaine_commande": 15.00
+    }
+}
