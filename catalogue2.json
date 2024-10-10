@@ -1,0 +1,160 @@
+{
+    "catalogue": {
+        "introduction": {
+            "titre": "CATALOGUE MENUISERIES PROFERM",
+            "description": "La qualité des menuiseries PROFERM résulte d’une combinaison judicieuse des meilleurs matériaux et technologies."
+        },
+        "valeurs": {
+            "qualité": {
+                "titre": "QUALITÉ",
+                "description": "La qualité des menuiseries PROFERM résulte d’une combinaison judicieuse des meilleurs matériaux et des meilleures technologies, associée à ses propres méthodes de fabrication. PROFERM s’engage à fournir des menuiseries haut de gamme alliant prouesses techniques, esthétisme et fiabilité."
+            },
+            "engagement": {
+                "titre": "ENGAGEMENT",
+                "description": "Depuis sa création, PROFERM innove et investit régulièrement pour optimiser son outil de production et garantir une fabrication française de très haut niveau, à partir de matériaux élaborés à 95 % sur le territoire français pour proposer des produits de qualité, toujours plus performants."
+            },
+            "securite_durabilite": {
+                "titre": "SÉCURITÉ & DURABILITÉ",
+                "description": "PROFERM veille à garantir un haut niveau de qualité et de sécurité à ses produits. Grâce à ses procédés de fabrication inspirés des méthodes employées dans l’automobile, PROFERM assure un haut niveau de fiabilité, une forte réactivité et une qualité constante des menuiseries."
+            },
+            "proximite": {
+                "titre": "PROXIMITÉ",
+                "description": "PROFERM met tout en œuvre pour garantir l’écoute, l’accompagnement et la satisfaction de sa clientèle. PROFERM veille à toujours fournir un produit et un service de qualité dans les meilleurs délais pour chacun de ses clients."
+            }
+        },
+        "gammes_produits": [
+            {
+                "nom": "PERFORM",
+                "type": "Fenêtre en PVC",
+                "description": "Fenêtre ultra-durable en PVC écologique GREENLINE® de chez KÖMMERLING®. Robustes, esthétiques, toutes les menuiseries PERFORM sont fabriquées avec des profils en PVC GREENLINE® de chez KÖMMERLING®, un matériau écologique sans plomb, recyclable et respectueux de l’environnement.",
+                "caractéristiques": {
+                    "performance_thermique": "Uw jusque 1.3/m²K",
+                    "sécurité": [
+                        "Système anti-effraction avec rouleau champignon",
+                        "Câle anti-fatigue",
+                        "Jonc de finition en partie basse"
+                    ],
+                    "formes_disponibles": [
+                        "Plein cintre",
+                        "œil de bœuf",
+                        "Triangle"
+                    ]
+                },
+                "accessoires": [
+                    {
+                        "nom": "Stores intégrés",
+                        "description": "Stores disponibles en différentes couleurs."
+                    },
+                    {
+                        "nom": "Vitrage",
+                        "description": "Vitrages standards avec possibilité de vitrage triple."
+                    }
+                ]
+            },
+            {
+                "nom": "HYBRIDE",
+                "type": "Fenêtre mixte PVC et aluminium",
+                "description": "HYBRIDE combine les deux meilleurs matériaux du marché : l'intérieur en PVC GREENLINE® de chez KÖMMERLING® et l'extérieur en aluminium. Cette menuiserie innovante allie performance et esthétisme, et se positionne comme l'un des meilleurs produits du marché en termes de rapport qualité/prix.",
+                "caractéristiques": {
+                    "performance_thermique": "Uw jusque 1.2/m²K",
+                    "isolation_acoustique": "Isolation phonique 31 dB",
+                    "drainage": "Drainage des eaux invisible par la traverse basse"
+                },
+                "accessoires": [
+                    {
+                        "nom": "Volets roulants",
+                        "description": "Volets roulants compatibles avec domotique."
+                    },
+                    {
+                        "nom": "Moustiquaire",
+                        "description": "Cadre fixe, possibilité de laisser la fenêtre ouverte."
+                    }
+                ]
+            },
+            {
+                "nom": "TEXTURAL®",
+                "type": "Fenêtre personnalisable en PVC et aluminium",
+                "description": "TEXTURAL® est une menuiserie au design raffiné qui donne naissance à une combinaison délicate et élégante. Elle met en valeur la noblesse des essences de bois et des textures à l'intérieur, ainsi que l’élégance des couleurs et finitions à l'extérieur. Avec TEXTURAL®, PROFERM innove et transforme la fenêtre en un véritable élément de décoration.",
+                "caractéristiques": {
+                    "matériaux": [
+                        "PVC intérieur",
+                        "Aluminium extérieur"
+                    ],
+                    "personnalisation": [
+                        "Textures uniques : cuir, carbone, wengé, etc."
+                    ],
+                    "finitions": [
+                        "Paumelles invisibles",
+                        "Battement central design"
+                    ]
+                },
+                "accessoires": [
+                    {
+                        "nom": "Vitrage",
+                        "description": "Vitrages personnalisables pour plus de sécurité et d’esthétisme."
+                    }
+                ]
+            },
+            {
+                "nom": "LUMINE",
+                "description": "LUMINE est une menuiserie en aluminium qui séduit par sa légèreté, sa durabilité et sa robustesse. Avec la LUMINE, PROFERM repousse les limites de l’aluminium en décuplant ses performances et en lui apportant plus de style et d’élégance. Fabriquée à partir de matériaux TECHNAL®, elle est reconnue pour ses performances en matière d’isolation, d’étanchéité et de robustesse."
+            }
+        ],
+        "portes_entree": {
+            "collection_authentique": {
+                "modèles": [
+                    "DOMINO",
+                    "IRIS",
+                    "ADONIS"
+                ],
+                "options_personnalisation": [
+                    "Petits bois",
+                    "Vitrages",
+                    "Grille de défense"
+                ]
+            },
+            "collection_hexa": {
+                "description": "Portes d’entrée monobloc alliant style contemporain et durabilité.",
+                "modèles": [
+                    "HEXA-BEN-0",
+                    "HEXA-ISIDORE",
+                    "HEXA-JACOB-0"
+                ],
+                "options": [
+                    "Inox autour du vitrage",
+                    "Petits bois en blanc ou laiton"
+                ]
+            }
+        },
+        "vitrages": {
+            "description": "Nos menuiseries peuvent être équipées de vitrages standards décoratifs ou de sécurité.",
+            "types": [
+                {
+                    "nom": "Dépoli Olivier",
+                    "usage": "Isolation thermique et phonique"
+                },
+                {
+                    "nom": "Delta clair",
+                    "usage": "Esthétique et personnalisation"
+                }
+            ],
+            "performances": {
+                "thermique": "Uw jusque 1.3/m²K",
+                "acoustique": "Atténuation de 31 dB"
+            }
+        },
+        "volets_roulants": {
+            "description": "Nos volets roulants renforcent l'isolation thermique et phonique des menuiseries PROFERM.",
+            "options": [
+                "Moteur SOMFY",
+                "Commande filaire",
+                "Capteur solaire"
+            ]
+        },
+        "garanties": {
+            "structure_fenetre": "15 ans sur la structure de la fenêtre",
+            "vitrage": "10 ans sur les vitrages",
+            "motorisation": "7 ans sur la motorisation des volets roulants"
+        }
+    }
+}

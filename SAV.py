@@ -13,7 +13,7 @@ with open('preprompt_SAV.json', 'r', encoding='utf-8') as file:
 with open('id_client.json', 'r', encoding='utf-8') as file:
     client = json.load(file)
 
-with open('catalogue.json', 'r', encoding='utf-8') as file:
+with open('catalogue2.json', 'r', encoding='utf-8') as file:
     catalogue = json.load(file)
 
 # Initialiser l'historique de la conversation
