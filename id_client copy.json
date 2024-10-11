@@ -16,7 +16,7 @@
             "produits": [
                 {
                     "produit_id": "P001",
-                    "nom": "Porte d'entrée Aluminium",
+                    "nom": "Porte en bois massif",
                     "quantite": 1,
                     "dimensions": "210x90 cm",
                     "prix_unitaire": 1200.00,
@@ -172,7 +172,7 @@
             "produits": [
                 {
                     "produit_id": "P007",
-                    "nom": "Porte-fenêtre aluminium",
+                    "nom": "Porte-fenêtre bois",
                     "quantite": 2,
                     "dimensions": "200x100 cm",
                     "prix_unitaire": 800.00,
@@ -269,6 +269,26 @@
                 "date_estimee_livraison": "2023-11-22",
                 "transporteur": "Chronopost"
             }
+        }
+    ],
+    "historique_interactions": [
+        {
+            "date": "2022-03-18",
+            "canal": "Email",
+            "sujet": "Suivi de livraison",
+            "details": "Le client a demandé le statut de livraison pour la commande CMD-001."
+        },
+        {
+            "date": "2023-06-11",
+            "canal": "Téléphone",
+            "sujet": "Question sur la commande",
+            "details": "Le client a demandé des informations sur les volets roulants de la commande CMD-004."
+        },
+        {
+            "date": "2023-09-10",
+            "canal": "Email",
+            "sujet": "Problème avec la baie vitrée",
+            "details": "Le client a signalé un problème de fermeture avec la baie vitrée de la commande CMD-003."
         }
     ],
     "abonnement_newsletter": true,
