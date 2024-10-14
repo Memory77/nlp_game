@@ -95,4 +95,4 @@ if submit_button and user_input:
 
 # Afficher la nouvelle réponse après traitement (facultatif)
 if 'model_reply' in st.session_state:
-    st.write(f"**ROBOT SAV**: {st.session_state.model_reply}")
+    st.write(f"**SAV**: {st.session_state.model_reply}")
